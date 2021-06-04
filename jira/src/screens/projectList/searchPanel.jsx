@@ -1,21 +1,4 @@
-import { useState, useEffect } from 'react';
-
-export default SearchPanel = () => {
-  const [param, setParam] = useState({
-    name: '',
-    personId: ''
-  })
-  const [users, setUsers] = useState([])
-  const [list, setList] = useState([])
-
-  useEffect(() => {
-    fetch('').then(async res => {
-      if (res.ok) {
-        setList(await res.json())
-      }
-    })
-  }, [param])
-
+export default SearchPanel = ({ users, param, setParam }) => {
   return <form>
     <div>
       {/* useState 不会自动合并更新对象。可以用函数式的 setState 结合扩展运算符来达到合并更新对象的效果。 */}
@@ -29,7 +12,7 @@ export default SearchPanel = () => {
       })}>
         <option value={''}>负责人</option>
         {
-          users.map(user => <option value={user.id}>{user.name}</option>)
+          users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
         }
       </select>
     </div>

@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
  * @returns Boolean
  */
 
-export const isFalsy = (value: any) => value === 0 ? false : !value
+//  unknown不能赋值给任何类型，也不能调用任何方法
+export const isFalsy = (value: unknown) => value === 0 ? false : !value
 
 /**
  * 清空Object中空值
@@ -32,9 +33,9 @@ export const cleanObject = (object: object) => {
  * @param {*} 自定义Hook Custom Hook
  * @returns Function
  */
-export const useMount = (callback: () => void) => {
+export const useMount = (fn: () => void) => {
   useEffect(() => {
-    callback()
+    fn()
   }, [])
 }
 
@@ -56,7 +57,9 @@ export const useMount = (callback: () => void) => {
 //   }
 // }
 
-export const useDebounce = (value: any, delay?: number) => {
+// 泛型（Generics）是指在定义函数、接口或类的时候，不预先指定具体的类型，
+// 而在使用的时候再指定类型的一种特性。
+export const useDebounce = <V>(value: V, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value)
 
   useEffect(() => {

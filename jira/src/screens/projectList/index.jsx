@@ -6,7 +6,7 @@ import { cleanObject } from '../../utils/index';
 
 const apiUrl = process.env.REACT_APP_API_URL
 
-export default ProjectListScreen = () => {
+export const ProjectListScreen = () => {
   const [users, setUsers] = useState([])
   const [param, setParam] = useState({
     name: '',
@@ -15,7 +15,7 @@ export default ProjectListScreen = () => {
   const [list, setList] = useState([])
 
   useEffect(() => {
-    fetch(`${apiUrl}/projects${qs.stringify(cleanObject(param))}`).then(async res => {
+    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(async res => {
       if (res.ok) {
         setList(await res.json())
       }

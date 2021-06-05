@@ -1,4 +1,4 @@
-export default List = ({ users, list }) => {
+export const List = ({ users, list }) => {
   return <table>
     <thead>
       <tr>

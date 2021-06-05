@@ -1,4 +1,4 @@
-export default SearchPanel = ({ users, param, setParam }) => {
+export const SearchPanel = ({ users, param, setParam }) => {
   return <form>
     <div>
       {/* useState 不会自动合并更新对象。可以用函数式的 setState 结合扩展运算符来达到合并更新对象的效果。 */}

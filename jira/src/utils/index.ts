@@ -7,18 +7,20 @@ import { useEffect, useState } from 'react';
  * @returns Boolean
  */
 
-export const isFalsy = (value) => value === 0 ? false : !value
+export const isFalsy = (value: any) => value === 0 ? false : !value
 
 /**
  * 清空Object中空值
  * @param {*} object 
  * @returns Object
  */
-export const cleanObject = (object) => {
+export const cleanObject = (object: object) => {
   const result = { ...object }
   Object.keys(result).forEach(key => {
+    //@ts-ignore
     const value = result[key]
     if (isFalsy(value)) {
+      //@ts-ignore
       delete result[key]
     }
   })
@@ -30,7 +32,7 @@ export const cleanObject = (object) => {
  * @param {*} 自定义Hook Custom Hook
  * @returns Function
  */
-export const useMount = (callback) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback()
   }, [])
@@ -42,19 +44,19 @@ export const useMount = (callback) => {
  * @param {*} delay 
  * @returns Function
  */
-const debounce = (func, delay) => {
-  let timeout
-  return (...param) => {
-    if (timeout) {
-      clearTimeout(timeout)
-    }
-    timeout = setTimeout(function () {
-      func(...param)
-    }, delay)
-  }
-}
+// const debounce = (func, delay) => {
+//   let timeout
+//   return (...param) => {
+//     if (timeout) {
+//       clearTimeout(timeout)
+//     }
+//     timeout = setTimeout(function () {
+//       func(...param)
+//     }, delay)
+//   }
+// }
 
-export const useDebounce = (value, delay) => {
+export const useDebounce = (value: any, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value)
 
   useEffect(() => {

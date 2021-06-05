@@ -1,4 +1,20 @@
-export const SearchPanel = ({ users, param, setParam }) => {
+export interface User {
+  id: string,
+  name: string,
+  personId: number,
+  organization: string
+}
+
+interface SearchPanelProps {
+  users: User[],
+  param: {
+    name: string,
+    personId: string
+  },
+  setParam: (param: SearchPanelProps['param']) => void
+}
+
+export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
   return <form>
     <div>
       {/* useState 不会自动合并更新对象。可以用函数式的 setState 结合扩展运算符来达到合并更新对象的效果。 */}

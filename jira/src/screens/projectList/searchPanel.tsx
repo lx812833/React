@@ -2,7 +2,8 @@ export interface User {
   id: string,
   name: string,
   personId: number,
-  organization: string
+  organization: string,
+  token: string
 }
 
 interface SearchPanelProps {

@@ -7,12 +7,16 @@ interface AuthForm {
   password: string
 }
 
+// 设置全局共享数据
 const AuthContext = React.createContext<{
   user: User | null,
   login: (form: AuthForm) => Promise<void>,
   register: (form: AuthForm) => Promise<void>,
   logout: () => Promise<void>
 } | undefined>(undefined)
+
+// context 对象接受一个名为 displayName 的 property，类型为字符串。
+// React DevTools 使用该字符串来确定 context 要显示的内容。
 AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {

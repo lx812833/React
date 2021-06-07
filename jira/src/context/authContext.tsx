@@ -1,10 +1,23 @@
 import React, { useState, ReactNode } from 'react';
 import * as auth from 'utils/authProvider';
 import { User } from 'screens/projectList/searchPanel';
+import { http } from 'utils/http';
+import { useMount } from 'utils/index';
 
 interface AuthForm {
   username: string,
   password: string
+}
+
+// 初始化（根据token）user
+const initUser = async () => {
+  let user = null
+  const token = auth.getToken()
+  if (token) {
+    const data = await http('me', { token: token })
+    user = data.user
+  }
+  return user
 }
 
 // 设置全局共享数据
@@ -24,6 +37,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = (form: AuthForm) => auth.login(form).then(res => setUser(res))
   const register = (form: AuthForm) => auth.register(form).then(res => setUser(res))
   const logout = () => auth.logout().then(() => setUser(null))
+
+  useMount(() => {
+    initUser().then(res => setUser(res))
+  })
 
   return <AuthContext.Provider children={children} value={{ user, login, register, logout }} />
 }

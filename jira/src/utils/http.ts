@@ -45,11 +45,11 @@ export const useHttp = () => {
   return (...[encode, config]: Parameters<typeof http>) => http(encode, { ...config, token: user?.token })
 }
 
-type Person = {
-  name: string,
-  age: number
-}
-// Partial：定义type中局部属性 Partial: type Partial<T> = { [P in keyof T]?: T[P] | undefined; }
-const student: Partial<Person> = { name: 'test' }
-// Omit: 忽略type中某个属性（删除多个 <Person, 'name' | 'age>）
-const person: Omit<Person, 'name'> = {age: 8}
+// type Person = {
+//   name: string,
+//   age: number
+// }
+// // Partial：定义type中局部属性 Partial: type Partial<T> = { [P in keyof T]?: T[P] | undefined; }
+// const student: Partial<Person> = { name: 'test' }
+// // Omit: 忽略type中某个属性（删除多个 <Person, 'name' | 'age>）
+// const person: Omit<Person, 'name'> = {age: 8}

@@ -1,5 +1,6 @@
 import { useAuth } from 'context/authContext';
 import { Form, Input, Button } from 'antd';
+import { LongButton } from './index';
 
 export const RegisterScreen = () => {
   const { register } = useAuth()
@@ -8,34 +9,21 @@ export const RegisterScreen = () => {
     register(values)
   }
 
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 8 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 24 },
-    },
-  };
-
-  return <Form {...formItemLayout} labelAlign={'right'} onFinish={handleRegister}>
+  return <Form onFinish={handleRegister}>
     <Form.Item
-      label="用户名"
       name="username"
       rules={[{ required: true, message: '请输入用户名!' }]}
     >
       <Input type="text" id="username" placeholder="用户名" />
     </Form.Item>
     <Form.Item
-      label="密码"
       name="password"
       rules={[{ required: true, message: '请输入密码!' }]}
     >
       <Input type="password" id="password" placeholder="密码" />
     </Form.Item>
-    <Form.Item style={{ textAlign: "center" }}>
-      <Button type="primary" htmlType="submit">注册</Button>
+    <Form.Item>
+      <LongButton type="primary" htmlType="submit">注册</LongButton>
     </Form.Item>
   </Form>
 }

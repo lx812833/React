@@ -14,7 +14,12 @@ interface ListProps {
 }
 
 export const List = ({ users, list }: ListProps) => {
-  return <Table pagination={false} columns={[{
+  // 随机字符串
+  const handleSetKey = () => {
+    return Math.random().toString(36).slice(-8)
+  }
+
+  return <Table pagination={false} rowKey={handleSetKey} columns={[{
     title: '名称',
     dataIndex: 'name',
     sorter: (a, b) => a?.name.localeCompare(b?.name)

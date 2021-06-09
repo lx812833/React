@@ -8,13 +8,24 @@ export const LoginScreen = () => {
     login(values)
   }
 
-  return <Form labelAlign={'left'} onFinish={handleSubmit}>
+  const formItemLayout = {
+    labelCol: {
+      xs: { span: 24 },
+      sm: { span: 8 },
+    },
+    wrapperCol: {
+      xs: { span: 24 },
+      sm: { span: 24 },
+    },
+  };
+
+  return <Form {...formItemLayout} labelAlign={'right'} onFinish={handleSubmit}>
     <Form.Item
       label="用户名"
       name="username"
       rules={[{ required: true, message: '请输入用户名!' }]}
     >
-      <Input type="text" id="username" placeholder={"用户名"} />
+      <Input type="text" id="username" placeholder="用户名" />
     </Form.Item>
     <Form.Item
       label="密码"
@@ -23,7 +34,7 @@ export const LoginScreen = () => {
     >
       <Input type="password" id="password" placeholder="密码" />
     </Form.Item>
-    <Form.Item style={{textAlign: "center"}}>
+    <Form.Item style={{ textAlign: 'center' }}>
       <Button type="primary" htmlType="submit">登录</Button>
     </Form.Item>
   </Form>

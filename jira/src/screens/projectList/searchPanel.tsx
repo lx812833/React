@@ -17,22 +17,27 @@ interface SearchPanelProps {
 }
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
-  return <form>
-    <div>
+  return <Form>
+    <Form.Item>
       {/* useState 不会自动合并更新对象。可以用函数式的 setState 结合扩展运算符来达到合并更新对象的效果。 */}
-      <input type="text" value={param.name} onChange={evt => setParam({
+      <Input type="text" placeholder="项目名" value={param.name} onChange={evt => setParam({
         ...param,
         name: evt.target.value
       })} />
-      <select value={param.personId} onChange={evt => setParam({
+    </Form.Item>
+    <Form.Item>
+      <Select placeholder="负责人" style={{ width: 120 }} value={param.personId} onChange={value => setParam({
         ...param,
-        personId: evt.target.value
+        personId: value
       })}>
-        <option value={''}>负责人</option>
         {
-          users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)
+          users.map((res: User) => (
+            <Select.Option key={res.id} value={res.id}>
+              {res.name}
+            </Select.Option>
+          ))
         }
-      </select>
-    </div>
-  </form>
+      </Select>
+    </Form.Item>
+  </Form>
 }

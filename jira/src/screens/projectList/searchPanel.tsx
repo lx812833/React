@@ -17,7 +17,7 @@ interface SearchPanelProps {
 }
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {
-  return <Form>
+  return <Form layout="inline" style={{ marginBottom: '2rem' }}>
     <Form.Item>
       {/* useState 不会自动合并更新对象。可以用函数式的 setState 结合扩展运算符来达到合并更新对象的效果。 */}
       <Input type="text" placeholder="项目名" value={param.name} onChange={evt => setParam({

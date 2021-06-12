@@ -1,5 +1,5 @@
 import { useAuth } from 'context/authContext';
-import { Form, Input, Button } from 'antd';
+import { Form, Input } from 'antd';
 import { LongButton } from './index';
 
 export const RegisterScreen = () => {

@@ -9,19 +9,20 @@ import { useEffect, useState } from 'react';
 
 //  unknown不能赋值给任何类型，也不能调用任何方法
 export const isFalsy = (value: unknown) => value === 0 ? false : !value
+// isVoid 判断值是否有意义
+export const isVoid = (value: unknown) => value === undefined || value === null || value === ''
 
 /**
  * 清空Object中空值
  * @param {*} object 
  * @returns Object
  */
-export const cleanObject = (object: object) => {
+// object: { [key: string]: unknown } 键值对类型
+export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object }
   Object.keys(result).forEach(key => {
-    //@ts-ignore
     const value = result[key]
-    if (isFalsy(value)) {
-      //@ts-ignore
+    if (isVoid(value)) {
       delete result[key]
     }
   })
@@ -33,9 +34,10 @@ export const cleanObject = (object: object) => {
  * @param {*} 自定义Hook Custom Hook
  * @returns Function
  */
-export const useMount = (fn: () => void) => {
+export const useMount = (callback: () => void) => {
   useEffect(() => {
-    fn()
+    callback()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }
 

@@ -1,5 +1,5 @@
 import { User } from 'screens/projectList/searchPanel';
-import { Table } from 'antd';
+import { Table, TableProps } from 'antd';
 import dayjs from 'dayjs';
 
 interface Project {
@@ -10,12 +10,12 @@ interface Project {
   created: number
 }
 
-interface ListProps {
-  list: Project[],
+// TableProps: Ant Design 属性
+interface ListProps extends TableProps<Project> {
   users: User[]
 }
 
-export const List = ({ users, list }: ListProps) => {
+export const List = ({ users, ...props }: ListProps) => {
   // 随机字符串
   const handleSetKey = () => {
     return Math.random().toString(36).slice(-8)
@@ -47,5 +47,7 @@ export const List = ({ users, list }: ListProps) => {
         </span>
       }
     }
-  ]} dataSource={list} />
+  ]}
+    {...props}
+  />
 }

@@ -7,6 +7,7 @@ import { Row } from './components/row';
 import { ReactComponent as SoftwareLogo } from 'assets/software-logo.svg';
 import { Navigate, Route, Routes } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { resetRouter } from 'utils/index';
 
 export const AuthenticatedApp = () => {
   return (
@@ -31,7 +32,9 @@ const PageHeader = () => {
     <HeaderLeft gap={true}>
       {/* 使用 ReactComponent as SoftwareLogo 来组件渲染svg */}
       {/* <img src={softwareLogo} alt="" /> */}
-      <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
+      <Button type="link" onClick={resetRouter}>
+        <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
+      </Button>
       <h2>项目</h2>
       <h2>用户</h2>
     </HeaderLeft>

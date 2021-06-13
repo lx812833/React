@@ -6,6 +6,7 @@ import { useHttp } from 'utils/http';
 import { useAsync } from 'utils/useAsync';
 import styled from '@emotion/styled';
 import { Typography } from 'antd';
+import { useUrlQueryParam } from 'utils/url';
 
 export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false)
@@ -14,6 +15,7 @@ export const ProjectListScreen = () => {
     name: '',
     personId: ''
   })
+  // useUrlQueryParam(['name'])
   const debouncedParam = useDebounce(param, 500)
   const request = useHttp()
   // const [list, setList] = useState([])

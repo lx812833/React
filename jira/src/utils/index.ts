@@ -93,3 +93,9 @@ export const useDocumentTitle = (title: string, keepOnUnmount: boolean = true) =
     // 当依赖项为有多个值的数组时，会比较每一个值，有一个不相等就执行
   }, [keepOnUnmount, oldTitle])
 }
+
+/**
+ * 
+ * @returns 重置路由
+ */
+export const resetRouter = () => window.location.href = window.location.origin

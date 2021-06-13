@@ -12,7 +12,12 @@ const defaultInitState: State<null> = {
   error: null
 }
 
-export const useAsync = <D>(initState?: State<D>) => {
+const defaultConfig = {
+  throwOnError: false
+}
+
+export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultConfig) => {
+  const config = { ...defaultConfig, ...initConfig }
   const [data, setData] = useState<State<D>>({
     ...defaultInitState,
     ...initState
@@ -43,9 +48,15 @@ export const useAsync = <D>(initState?: State<D>) => {
         setSuccess(res)
         return res
       })
+      // catch会消耗异常，如果不主动Promise.reject抛出，后续无法catch异常
       .catch(error => {
         setError(error)
-        return error
+        console.log("报错的", config)
+        if(config.throwOnError) {
+          return Promise.reject(error)
+        } else {
+          return error
+        }
       })
   }
 

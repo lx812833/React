@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { SearchPanel } from './searchPanel';
 import { List, Project } from './list';
-import { cleanObject, useMount, useDebounce } from 'utils/index';
+import { cleanObject, useMount, useDebounce, useDocumentTitle } from 'utils/index';
 import { useHttp } from 'utils/http';
 import { useAsync } from 'utils/useAsync';
 import styled from '@emotion/styled';
 import { Typography } from 'antd';
 
 export const ProjectListScreen = () => {
+  useDocumentTitle("项目列表", false)
   const [users, setUsers] = useState([])
   const [param, setParam] = useState({
     name: '',

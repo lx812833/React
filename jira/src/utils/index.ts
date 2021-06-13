@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 /**
  * 判断undefined，null为空时可能出现有效值0的情况
@@ -72,4 +72,24 @@ export const useDebounce = <V>(value: V, delay?: number) => {
   }, [value, delay])
 
   return debouncedValue
+}
+
+// 设置网页title
+export const useDocumentTitle = (title: string, keepOnUnmount: boolean = true) => {
+  const oldTitle = useRef(document.title).current
+
+  useEffect(() => {
+    document.title = title
+    // 依赖项被更改时，重复执行
+  }, [title])
+
+  useEffect(() => {
+    // 组件卸载时执行
+    return () => {
+      if(!keepOnUnmount) {
+        document.title = oldTitle
+      }
+    }
+    // 当依赖项为有多个值的数组时，会比较每一个值，有一个不相等就执行
+  }, [keepOnUnmount, oldTitle])
 }

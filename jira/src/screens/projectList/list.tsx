@@ -2,13 +2,16 @@ import { User } from 'screens/projectList/searchPanel';
 import { Table, TableProps } from 'antd';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { Score } from 'components/score';
+import { useEditProject } from 'components/project';
 
 export interface Project {
   id: number,
   name: string,
-  personId: number | string,
+  personId: number,
   organization: string,
-  created: number
+  created: number,
+  pin: boolean
 }
 
 // TableProps: Ant Design 属性
@@ -21,8 +24,18 @@ export const List = ({ users, ...props }: ListProps) => {
   const handleSetKey = () => {
     return Math.random().toString(36).slice(-8)
   }
+  // 项目评分与否
+  const { rateProject } = useEditProject()
 
   return <Table pagination={false} rowKey={handleSetKey} columns={[
+    {
+      title: <Score checked={true} disabled={true} />,
+      render(value, project) {
+        return <Score checked={project.pin} onCheckedChange={pin => {
+          rateProject({ id: project.personId, pin })
+        }} />
+      }
+    },
     {
       title: '名称',
       sorter: (a, b) => a?.name.localeCompare(b?.name),

@@ -1,6 +1,6 @@
 import { Input, Form } from 'antd';
 import { Project } from 'screens/projectList/list';
-import { UserSelect } from 'components/userSelect';
+import { UserSelect } from 'components/user';
 export interface User {
   id: number,
   name: string,

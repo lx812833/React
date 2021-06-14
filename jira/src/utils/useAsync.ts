@@ -51,7 +51,6 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
       // catch会消耗异常，如果不主动Promise.reject抛出，后续无法catch异常
       .catch(error => {
         setError(error)
-        console.log("报错的", config)
         if(config.throwOnError) {
           return Promise.reject(error)
         } else {

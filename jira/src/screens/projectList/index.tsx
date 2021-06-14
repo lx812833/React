@@ -11,11 +11,11 @@ import { useUrlQueryParam } from 'utils/url';
 export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false)
   const [users, setUsers] = useState([])
-  const [param, setParam] = useState({
-    name: '',
-    personId: ''
-  })
-  // useUrlQueryParam(['name'])
+  const [param, setParam] = useUrlQueryParam(['name', 'personId'])
+  // const [param, setParam] = useState({
+  //   name: '',
+  //   personId: ''
+  // })
   const debouncedParam = useDebounce(param, 500)
   const request = useHttp()
   // const [list, setList] = useState([])

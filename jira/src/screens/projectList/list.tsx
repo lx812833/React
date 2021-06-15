@@ -16,7 +16,8 @@ export interface Project {
 
 // TableProps: Ant Design 属性
 interface ListProps extends TableProps<Project> {
-  users: User[]
+  users: User[],
+  refresh?: () => void
 }
 
 export const List = ({ users, ...props }: ListProps) => {
@@ -32,7 +33,7 @@ export const List = ({ users, ...props }: ListProps) => {
       title: <Score checked={true} disabled={true} />,
       render(value, project) {
         return <Score checked={project.pin} onCheckedChange={pin => {
-          rateProject({ id: project.personId, pin })
+          rateProject({ id: project.id, pin }).then(props.refresh)
         }} />
       }
     },

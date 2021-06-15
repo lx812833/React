@@ -11,13 +11,13 @@ export const ProjectListScreen = () => {
   const { data: users } = useUsers()
 
   const [param, setParam] = useProjectsSearchParams()
-  const { isLoading, error, data: tableList } = useProjects(useDebounce(param, 500))
+  const { isLoading, error, data: tableList, retry } = useProjects(useDebounce(param, 500))
 
   return <Container>
     <h1>项目列表</h1>
     <SearchPanel users={users || []} param={param} setParam={setParam} />
     {error ? <Typography.Text type="danger">{error.message}</Typography.Text> : null}
-    <List users={users || []} loading={isLoading} dataSource={tableList || []} />
+    <List refresh={retry} users={users || []} loading={isLoading} dataSource={tableList || []} />
   </Container>
 }
 

@@ -18,31 +18,42 @@ const defaultConfig = {
 
 export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultConfig) => {
   const config = { ...defaultConfig, ...initConfig }
-  const [data, setData] = useState<State<D>>({
+  const [state, setState] = useState<State<D>>({
     ...defaultInitState,
     ...initState
   })
 
+  // useState直接传入函数的含义是：惰性初始化
+  // 所以，要用useState保存函数，不能直接传入函数
+  const [retry, setRetry] = useState(() => () => { })
+
   const setSuccess = (data: D) => {
-    setData({
+    setState({
       data,
       status: 'success',
       error: null
     })
   }
   const setError = (error: Error) => {
-    setData({
+    setState({
       data: null,
       status: 'error',
       error
     })
   }
-  // run：用于触发异步请求
-  const handleRunPromise = (promise: Promise<D>) => {
+  // handleRunPromise：用于触发异步请求
+  const handleRunPromise = (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
     if (!promise || !promise.then()) {
       throw new Error
     }
-    setData({ ...data, status: 'loading' })
+    setRetry(() => () => {
+      if (runConfig?.retry) {
+        // 缓存当前handleRunPromise执行环境，用于之后重新调用handleRunPromise函数
+        console.log("retry")
+        handleRunPromise(runConfig?.retry(), runConfig)
+      }
+    })
+    setState({ ...state, status: 'loading' })
     return promise
       .then(res => {
         setSuccess(res)
@@ -51,7 +62,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
       // catch会消耗异常，如果不主动Promise.reject抛出，后续无法catch异常
       .catch(error => {
         setError(error)
-        if(config.throwOnError) {
+        if (config.throwOnError) {
           return Promise.reject(error)
         } else {
           return error
@@ -60,13 +71,14 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
   }
 
   return {
-    isIdle: data.status === "idle",
-    isLoading: data.status === "loading",
-    isError: data.status === "error",
-    isSuccess: data.status === "success",
+    isIdle: state.status === "idle",
+    isLoading: state.status === "loading",
+    isError: state.status === "error",
+    isSuccess: state.status === "success",
     handleRunPromise,
     setSuccess,
     setError,
-    ...data
+    retry, // 重新执行handleRunPromise，刷新state
+    ...state
   }
 }

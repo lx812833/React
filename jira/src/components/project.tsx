@@ -8,9 +8,10 @@ import { Project } from 'screens/projectList/list'
 export const useProjects = (param?: Partial<Project>) => {
   const { handleRunPromise, ...result } = useAsync<Project[]>()
   const request = useHttp()
+  const fetchProjects = () => request("projects", { data: cleanObject(param || {}) })
 
   useEffect(() => {
-    handleRunPromise(request("projects", { data: cleanObject(param || {}) }))
+    handleRunPromise(fetchProjects(), { retry: fetchProjects })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [param])
 

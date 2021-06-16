@@ -111,3 +111,22 @@ export const subset = <O extends { [key in string]: unknown }, K extends keyof O
   );
   return Object.fromEntries(filteredEntries) as Pick<O, K>;
 };
+
+/**
+ * 返回组件的挂载状态，如果还没挂载或已经卸载，返回false；反之，返回true
+ */
+
+export const useMountedRef = () => {
+  const mountedRef = useRef(false)
+
+  useEffect(() => {
+    // 页面加载
+    mountedRef.current = true
+    return () => {
+      // useEffect返回一个函数，页面卸载时触发
+      mountedRef.current = false
+    }
+  })
+
+  return mountedRef
+}

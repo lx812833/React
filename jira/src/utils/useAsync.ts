@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useMountedRef } from 'utils/index';
 
 interface State<D> {
   data: D | null,
@@ -22,6 +23,8 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
     ...defaultInitState,
     ...initState
   })
+
+  const mountedRef = useMountedRef()
 
   // useState直接传入函数的含义是：惰性初始化
   // 所以，要用useState保存函数，不能直接传入函数
@@ -56,7 +59,9 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
     setState({ ...state, status: 'loading' })
     return promise
       .then(res => {
-        setSuccess(res)
+        if(mountedRef.current) {
+          setSuccess(res)
+        }
         return res
       })
       // catch会消耗异常，如果不主动Promise.reject抛出，后续无法catch异常

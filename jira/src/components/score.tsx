@@ -1,6 +1,7 @@
 import React from 'react';
 import { Rate } from 'antd';
 
+// 获取Rate组件的 props 类型声明
 interface RateProps extends React.ComponentProps<typeof Rate> {
   checked: boolean,
   onCheckedChange?: (checked: boolean) => void

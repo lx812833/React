@@ -2,7 +2,9 @@
 /*
 *  rem: 相对于根元素html的font-size
 *   em: 相对于父元素的font-size
-*/
+
+*   每个浏览器的默认字体大小是16px
+*/ 
 /* 1rem = 16px * 62.5% = 10px */
 
 html {

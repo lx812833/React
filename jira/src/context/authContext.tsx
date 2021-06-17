@@ -22,7 +22,7 @@ const initUser = async () => {
   return user
 }
 
-// 设置全局共享数据
+// 实现组件跨层级传值功能
 const AuthContext = React.createContext<{
   user: User | null,
   login: (form: AuthForm) => Promise<void>,
@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 // 自定义Hook useAuth
 export const useAuth = () => {
+  // useContext：接收一个Context对象（React.CreateContext的返回值），并返回该 Context 的当前值。
   const context = React.useContext(AuthContext)
   if (!context) {
     throw new Error('useAuth必须在AuthProvider中使用')

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useMountedRef } from 'utils/index';
 
 interface State<D> {
@@ -45,7 +45,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
     })
   }
   // handleRunPromise：用于触发异步请求
-  const handleRunPromise = (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
+  const handleRunPromise = useCallback((promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
     if (!promise || !promise.then()) {
       throw new Error
     }
@@ -59,7 +59,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
     setState({ ...state, status: 'loading' })
     return promise
       .then(res => {
-        if(mountedRef.current) {
+        if (mountedRef.current) {
           setSuccess(res)
         }
         return res
@@ -73,7 +73,8 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
           return error
         }
       })
-  }
+      // 只有当依赖项数据变化时，才会重新定义 handleRunPromise
+  }, [])
 
   return {
     isIdle: state.status === "idle",

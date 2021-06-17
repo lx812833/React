@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import qs from 'qs';
 import * as auth from 'utils/authProvider';
 import { useAuth } from 'context/authContext';
@@ -41,8 +42,9 @@ export const http = async (encode: string, { data, token, headers, ...customConf
 export const useHttp = () => {
   const { user } = useAuth()
   // 联合类型 Utility Types
-  // (...[encode, config]: [string, RequestConfig])
-  return (...[encode, config]: Parameters<typeof http>) => http(encode, { ...config, token: user?.token })
+  return useCallback(
+    (...[encode, config]: Parameters<typeof http>) => http(encode, { ...config, token: user?.token }), [user?.token]
+  )
 }
 
 // type Person = {

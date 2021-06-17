@@ -120,7 +120,7 @@ export const useMountedRef = () => {
   const mountedRef = useRef(false)
 
   useEffect(() => {
-    // 页面加载
+    // 页面加载完调用
     mountedRef.current = true
     return () => {
       // useEffect返回一个函数，页面卸载时触发

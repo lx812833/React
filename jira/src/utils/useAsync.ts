@@ -30,20 +30,20 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
   // 所以，要用useState保存函数，不能直接传入函数
   const [retry, setRetry] = useState(() => () => { })
 
-  const setSuccess = (data: D) => {
+  const setSuccess = useCallback((data: D) => {
     setState({
       data,
       status: 'success',
       error: null
     })
-  }
-  const setError = (error: Error) => {
+  }, [])
+  const setError = useCallback((error: Error) => {
     setState({
       data: null,
       status: 'error',
       error
     })
-  }
+  }, [])
   // handleRunPromise：用于触发异步请求
   const handleRunPromise = useCallback((promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
     if (!promise || !promise.then()) {
@@ -56,7 +56,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
         handleRunPromise(runConfig?.retry(), runConfig)
       }
     })
-    setState({ ...state, status: 'loading' })
+    setState(prevState => ({ ...prevState, status: 'loading' }))
     return promise
       .then(res => {
         if (mountedRef.current) {
@@ -73,8 +73,8 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
           return error
         }
       })
-      // 只有当依赖项数据变化时，才会重新定义 handleRunPromise
-  }, [])
+    // 只有当依赖项数据变化时，才会重新定义 handleRunPromise
+  }, [config.throwOnError, mountedRef, setSuccess, setError])
 
   return {
     isIdle: state.status === "idle",

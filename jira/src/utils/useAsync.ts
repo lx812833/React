@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useReducer } from 'react';
 import { useMountedRef } from 'utils/index';
 
 interface State<D> {
@@ -17,33 +17,45 @@ const defaultConfig = {
   throwOnError: false
 }
 
+const useSafeDispatch = <T>(dispash: (...args: T[]) => void) => {
+  const mountedRef = useMountedRef()
+
+  return useCallback((...args: T[]) => (mountedRef.current ? dispash(...args) : void 0), [dispash, mountedRef])
+}
+
 export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultConfig) => {
   const config = { ...defaultConfig, ...initConfig }
-  const [state, setState] = useState<State<D>>({
-    ...defaultInitState,
-    ...initState
-  })
+  // const [state, setState] = useState<State<D>>({
+  //   ...defaultInitState,
+  //   ...initState
+  // })
 
-  const mountedRef = useMountedRef()
+  // 使用useReducer改造
+  const [state, dispatch] = useReducer((state: State<D>, action: Partial<State<D>>) => (
+    { ...state, ...action }),
+    { ...defaultInitState, ...initState }
+  )
+
+  const safeDispatch = useSafeDispatch(dispatch)
 
   // useState直接传入函数的含义是：惰性初始化
   // 所以，要用useState保存函数，不能直接传入函数
   const [retry, setRetry] = useState(() => () => { })
 
   const setSuccess = useCallback((data: D) => {
-    setState({
+    safeDispatch({
       data,
       status: 'success',
       error: null
     })
-  }, [])
+  }, [safeDispatch])
   const setError = useCallback((error: Error) => {
-    setState({
+    safeDispatch({
       data: null,
       status: 'error',
       error
     })
-  }, [])
+  }, [safeDispatch])
   // handleRunPromise：用于触发异步请求
   const handleRunPromise = useCallback((promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
     if (!promise || !promise.then()) {
@@ -56,12 +68,10 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
         handleRunPromise(runConfig?.retry(), runConfig)
       }
     })
-    setState(prevState => ({ ...prevState, status: 'loading' }))
+    safeDispatch({ status: "loading" })
     return promise
       .then(res => {
-        if (mountedRef.current) {
-          setSuccess(res)
-        }
+        setSuccess(res)
         return res
       })
       // catch会消耗异常，如果不主动Promise.reject抛出，后续无法catch异常
@@ -74,7 +84,7 @@ export const useAsync = <D>(initState?: State<D>, initConfig?: typeof defaultCon
         }
       })
     // 只有当依赖项数据变化时，才会重新定义 handleRunPromise
-  }, [config.throwOnError, mountedRef, setSuccess, setError])
+  }, [config.throwOnError, setSuccess, setError, safeDispatch])
 
   return {
     isIdle: state.status === "idle",

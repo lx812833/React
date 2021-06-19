@@ -1,9 +1,10 @@
 import { User } from 'screens/projectList/searchPanel';
-import { Table, TableProps } from 'antd';
+import { Button, Dropdown, Menu, Table, TableProps } from 'antd';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { Score } from 'components/score';
 import { useEditProject } from 'components/project';
+import styled from '@emotion/styled';
 
 export interface Project {
   id: number,
@@ -17,7 +18,8 @@ export interface Project {
 // TableProps: Ant Design 属性
 interface ListProps extends TableProps<Project> {
   users: User[],
-  refresh?: () => void
+  refresh?: () => void,
+  setProjectModalOpen: (isOpen: boolean) => void
 }
 
 export const List = ({ users, ...props }: ListProps) => {
@@ -63,8 +65,24 @@ export const List = ({ users, ...props }: ListProps) => {
           {project.created ? dayjs(project.created).format('YYYY-MM-DD') : '无'}
         </span>
       }
+    },
+    {
+      render(value, project) {
+        const overlay = <Menu>
+          <Menu.Item key="edit">
+            <ButtonNoPadding type="link" onClick={() => props.setProjectModalOpen(true)}>编辑</ButtonNoPadding>
+          </Menu.Item>
+        </Menu>
+        return <Dropdown overlay={overlay}>
+          <ButtonNoPadding type="link" style={{ padding: 0 }}>...</ButtonNoPadding>
+        </Dropdown>
+      }
     }
   ]}
     {...props}
   />
 }
+
+const ButtonNoPadding = styled(Button)`
+  padding: 0;
+`

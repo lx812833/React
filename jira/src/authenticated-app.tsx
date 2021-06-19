@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { ProjectListScreen } from 'screens/projectList/index';
 import { ProjectScreen } from 'screens/project/index';
+import { ProjectModal } from 'screens/projectList/projectModal';
+import { ProjectPopover } from 'components/projectPopover';
 import { useAuth } from 'context/authContext';
 import { Dropdown, Menu, Button } from 'antd';
 import styled from '@emotion/styled';
@@ -10,33 +13,36 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { resetRouter } from 'utils/index';
 
 export const AuthenticatedApp = () => {
+  const [projectModalOpen, setProjectModalOpen] = useState(false)
+
   return (
     <Container>
-      <PageHeader />
+      <PageHeader setProjectModalOpen={setProjectModalOpen} />
       <Main>
         <Router>
           <Routes>
-            <Route path={"/projects"} element={<ProjectListScreen />} />
+            <Route path={"/projects"} element={<ProjectListScreen setProjectModalOpen={setProjectModalOpen} />} />
             <Route path={"/projects/:projectId/*"} element={<ProjectScreen />} />
             <Navigate to={"/projects"} />
           </Routes>
         </Router>
       </Main>
+      <ProjectModal projectModalOpen={projectModalOpen} onClose={() => setProjectModalOpen(false)} />
     </Container>
   )
 }
 
-const PageHeader = () => {
+const PageHeader = (props: { setProjectModalOpen: (isOpen: boolean) => void }) => {
   const { logout, user } = useAuth()
   return <Header between={true}>
     <HeaderLeft gap={true}>
       {/* 使用 ReactComponent as SoftwareLogo 来组件渲染svg */}
       {/* <img src={softwareLogo} alt="" /> */}
-      <Button type="link" onClick={resetRouter}>
+      <Button style={{ padding: 0 }} type="link" onClick={resetRouter}>
         <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
       </Button>
-      <h2>项目</h2>
-      <h2>用户</h2>
+      <ProjectPopover setProjectModalOpen={props.setProjectModalOpen} />
+      <span>用户</span>
     </HeaderLeft>
     <HeaderRight>
       <Dropdown overlay={

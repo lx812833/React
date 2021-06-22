@@ -1,5 +1,15 @@
+import { useState } from 'react';
+import { ChildEmit } from './emit';
+
 export const TaskScreen = () => {
-  return <h1>
-    任务组
-  </h1>
+  const [title, setTitle] = useState("hello world")
+  const handleChangeTitle = (data: string) => {
+    setTitle(data)
+  }
+  return (
+    <div>
+      <div>任务组</div>
+      <ChildEmit title={title} changeTitle={handleChangeTitle} />
+    </div>
+  )
 }

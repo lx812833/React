@@ -1,6 +1,10 @@
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import { Button } from 'antd';
+
 export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: Function }) => {
   const handleGeneric = <T extends {}>(props: T) => {
-    console.log("泛型", props)
+    console.log("props", props)
   }
 
   //  keyof：索引类型查询，返回后面跟着的类型参数的键值组成的字面量类型，就相当于 Object.keys()
@@ -32,3 +36,78 @@ export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: 
     <div onClick={handleChangeTitle}>{title}</div>
   )
 }
+
+
+// 进度条
+export const ProgressBar = () => {
+  let totalTime = 3000  // 设置视频播放为30s
+  const [isplay, setIsplay] = useState(true) // 是否播放
+  const [type, setType] = useState(0) // 使用哪个动画 0: @keyframes play; 1: @keyframes replay;
+
+  // 暂停 & 播放
+  const handlePlayer = () => setIsplay(!isplay)
+  // 重播
+  const handleReplay = () => {
+    setIsplay(true)
+    setType(type ? 0 : 1)
+  }
+  // 动画结束事件
+  const handleEnd = () => handleReplay()
+
+  return (
+    <Player>
+      <Button onClick={handlePlayer}>{isplay ? '暂停' : '播放'}</Button>
+      <Button onClick={handleReplay}>重播</Button>
+      <div className="container">
+        <div
+          className={`progress ${isplay ? 'play' : 'pause'}`}
+          style={{
+            animationDuration: `${totalTime}ms`,
+            animationName: `${type ? 'replay' : 'play'}`,
+            // 使animation动画或暂停
+            animationPlayState: `${isplay ? 'running' : 'paused'}`
+          }}
+          onAnimationEnd={handleEnd} // 动画结束时事件
+        ></div>
+      </div>
+    </Player>
+  )
+}
+
+const Player = styled.div`
+  padding: 10rem;
+  Button {
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+  .container {
+    height: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    .progress  {
+      height: 100%;
+      width: 100%;
+      will-change: transform; /* 通过will-change告知浏览器提前做好优化准备 */
+      animation-timing-function: linear;
+      background-color: red;
+
+      @keyframes play {
+        0% {  
+          transform: translateX(-50%) scaleX(0);  /* 用 scaleX 来代替 width */
+        }
+        to {
+          transform: translateX(0) scaleX(1);
+        }
+      }
+
+      @keyframes replay {
+        0% {
+          transform: translateX(-50%) scaleX(0);
+        }
+        to {
+          transform: translateX(0) scaleX(1);
+        }
+      }
+    }
+  }
+`

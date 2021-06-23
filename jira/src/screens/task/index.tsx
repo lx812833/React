@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChildEmit } from './emit';
+import { ChildEmit, ProgressBar } from './emit';
 
 export const TaskScreen = () => {
   const [title, setTitle] = useState("hello world")
@@ -10,6 +10,7 @@ export const TaskScreen = () => {
     <div>
       <div>任务组</div>
       <ChildEmit title={title} changeTitle={handleChangeTitle} />
+      <ProgressBar />
     </div>
   )
 }

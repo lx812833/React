@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { loadServer, DevTools } from 'jira-dev-tool';
 import 'antd/dist/antd.less';
 import { AppProviders } from 'context';
+import store from 'store/index';
 
 // loadServer为配套jira-dev-tool使用
 loadServer(() => {
@@ -12,7 +14,9 @@ loadServer(() => {
     <React.StrictMode>
       <AppProviders>
         <DevTools />
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </AppProviders>
     </React.StrictMode>,
     document.getElementById('root')

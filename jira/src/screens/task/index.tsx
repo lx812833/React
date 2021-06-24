@@ -10,7 +10,7 @@ export const TaskScreen = () => {
     <div>
       <div>任务组</div>
       <ChildEmit title={title} changeTitle={handleChangeTitle} />
-      <ProgressBar />
+      {/* <ProgressBar /> */}
     </div>
   )
 }

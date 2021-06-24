@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Button } from 'antd';
 import { activitySlice } from 'store/features/activitySlice';
-import store from 'store/index';
+import { store } from 'store/index';
 
 const moviesUrl = 'https://pcw-api.iqiyi.com/search/recommend/list?channel_id=1&data_type=1&mode=11&page_id=2&ret_num=48'
 const loadMoviesAPI = () => fetch(moviesUrl).then(res => res.json())
@@ -31,6 +31,7 @@ export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: 
       }
     }
     fetchDate()
+    // eslint-disable-next-line
   }, [])
 
 

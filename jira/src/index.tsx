@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { loadServer, DevTools } from 'jira-dev-tool';
 import 'antd/dist/antd.less';
 import { AppProviders } from 'context';
-import store from 'store/index';
+import { store } from 'store/index';
 
 // loadServer为配套jira-dev-tool使用
 loadServer(() => {

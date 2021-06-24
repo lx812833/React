@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { ProjectListScreen } from 'screens/projectList/index';
 import { ProjectScreen } from 'screens/project/index';
 import { ProjectModal } from 'screens/projectList/projectModal';
@@ -13,30 +12,25 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { resetRouter } from 'utils/index';
 
 export const AuthenticatedApp = () => {
-  const [projectModalOpen, setProjectModalOpen] = useState(false)
-
   return (
     <Container>
-      <PageHeader createProjectBtn={
-        <ButtonNoPadding type="link" onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>
-      } />
+      <PageHeader />
       <Main>
         <Router>
           <Routes>
-            <Route path={"/projects"} element={<ProjectListScreen createProjectBtn={
-              <ButtonNoPadding type="link" onClick={() => setProjectModalOpen(true)}>创建项目</ButtonNoPadding>
-            } />} />
+            <Route path={"/projects"} element={<ProjectListScreen />} />
             <Route path={"/projects/:projectId/*"} element={<ProjectScreen />} />
             <Navigate to={"/projects"} />
           </Routes>
         </Router>
       </Main>
-      <ProjectModal projectModalOpen={projectModalOpen} onClose={() => setProjectModalOpen(false)} />
+      <ProjectModal />
     </Container>
   )
 }
 
-const PageHeader = (props: { createProjectBtn: JSX.Element }) => {
+// props: { createProjectBtn: JSX.Element }
+const PageHeader = () => {
   const { logout, user } = useAuth()
   return <Header between={true}>
     <HeaderLeft gap={true}>
@@ -45,7 +39,7 @@ const PageHeader = (props: { createProjectBtn: JSX.Element }) => {
       <Button style={{ padding: 0 }} type="link" onClick={resetRouter}>
         <SoftwareLogo width="18rem" color="rgb(38, 132, 255)" />
       </Button>
-      <ProjectPopover {...props} />
+      <ProjectPopover />
       <span>用户</span>
     </HeaderLeft>
     <HeaderRight>
@@ -78,7 +72,3 @@ const HeaderLeft = styled(Row)``;
 const HeaderRight = styled.div``;
 
 const Main = styled.main``;
-
-const ButtonNoPadding = styled(Button)`
-  padding: 0;
-`

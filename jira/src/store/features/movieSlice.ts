@@ -16,6 +16,10 @@ export const getMovieList = createAsyncThunk('movie/movieList', async () => {
 interface listState {
   tvId?: string;
   title?: string;
+  imageUrl?: string;
+  playUrl?: string;
+  description?: string;
+  focus?: string
 }
 interface movieState {
   data: listState[];

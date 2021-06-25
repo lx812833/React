@@ -1,14 +1,18 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
-import { Button } from 'antd';
+import { Button, List, Avatar, Space } from 'antd';
+import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { selectMovieState, getMovieList } from 'store/features/movieSlice';
 import { FullPageLoading } from 'components/fullPage';
 
 export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: Function }) => {
   // react-redux
   const dispatch = useDispatch()
-  const {loading, data: movieList} = useSelector(selectMovieState)
+  const { loading, data: movieList } = useSelector(selectMovieState)
+
+  console.log("movieList", movieList)
 
   useEffect(() => {
     dispatch(getMovieList())
@@ -47,14 +51,51 @@ export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: 
   if (loading) {
     return <FullPageLoading />
   }
+
+  const IconText = ({ icon, text }: { icon: string, text: string }) => (
+    <Space>
+      {React.createElement(icon)}
+      {text}
+    </Space>
+  );
+
   return (
     <div>
       <div onClick={handleChangeTitle}>{title}</div>
-      {
-        movieList?.map(item => {
-          return <li key={item.tvId}>{item?.title}</li>
-        })
-      }
+      <List
+        itemLayout="vertical"
+        size="large"
+        pagination={{
+          onChange: page => {
+            console.log('pagination', page);
+          },
+          pageSize: 3,
+        }}
+        dataSource={movieList}
+        footer={
+          <div>
+            <b>ant design</b> footer part
+          </div>
+        }
+        renderItem={item => (
+          <List.Item
+            key={item.tvId}
+            // actions={[
+            //   <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+            //   <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+            //   <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+            // ]}
+            extra={<img width={272} alt="logo" src={item?.imageUrl} />}
+          >
+            <List.Item.Meta
+              avatar={<Avatar src={item?.imageUrl} />}
+              title={<a href={item.playUrl}>{item.title}</a>}
+              description={item.description}
+            />
+            {item.focus}
+          </List.Item>
+        )}
+      />
     </div>
   )
 }

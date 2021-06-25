@@ -1,7 +1,6 @@
 import { Drawer, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { projectListActions } from 'store/features/projectListSlice';
-import { selectProjectState } from 'store/features/projectListSlice';
+import { projectListActions, selectProjectState } from 'store/features/projectListSlice';
 
 export const ProjectModal = () => {
   const dispatch = useDispatch()

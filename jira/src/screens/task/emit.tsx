@@ -1,39 +1,19 @@
 import { useEffect, useState } from 'react';
-// useSelector
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { Button } from 'antd';
-import { activitySlice } from 'store/features/activitySlice';
-import { store } from 'store/index';
-
-const moviesUrl = 'https://pcw-api.iqiyi.com/search/recommend/list?channel_id=1&data_type=1&mode=11&page_id=2&ret_num=48'
-const loadMoviesAPI = () => fetch(moviesUrl).then(res => res.json())
+import { selectMovieState, getMovieList } from 'store/features/movieSlice';
+import { FullPageLoading } from 'components/fullPage';
 
 export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: Function }) => {
   // react-redux
   const dispatch = useDispatch()
+  const {loading, data: movieList} = useSelector(selectMovieState)
+
   useEffect(() => {
-    const fetchDate = async () => {
-      dispatch(activitySlice.actions.fetchStart())
-      console.log("获取的", store)
-      try {
-        const { data } = await loadMoviesAPI()
-        const { list } = data
-        dispatch(activitySlice.actions.fetchSuccess({
-          data: list,
-          total: list.length,
-          pageNumber: 1,
-          pageSize: 10
-        }))
-        console.log("获取的res列表", data)
-      } catch (error) {
-        dispatch(activitySlice.actions.fetchFail(error))
-      }
-    }
-    fetchDate()
+    dispatch(getMovieList())
     // eslint-disable-next-line
   }, [])
-
 
   const handleGeneric = <T extends {}>(props: T) => {
     console.log("props", props)
@@ -64,8 +44,18 @@ export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: 
     let array = handleGenericArray({ a: 1, b: '2' }, ['a', 'b'])
     console.log("array", array)
   }
+  if (loading) {
+    return <FullPageLoading />
+  }
   return (
-    <div onClick={handleChangeTitle}>{title}</div>
+    <div>
+      <div onClick={handleChangeTitle}>{title}</div>
+      {
+        movieList?.map(item => {
+          return <li key={item.tvId}>{item?.title}</li>
+        })
+      }
+    </div>
   )
 }
 

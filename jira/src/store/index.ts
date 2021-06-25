@@ -1,13 +1,14 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { projectListSlice } from './features/projectListSlice';
-import { activitySlice } from './features/activitySlice';
+import { movieSlice } from './features/movieSlice';
 
 // 合并多个reducer
 export const rootReducer = combineReducers({
-  activity: activitySlice.reducer,
+  movie: movieSlice.reducer,
   projectList: projectListSlice.reducer
 })
 
+// 包裹createStore
 export const store = configureStore({
   reducer: rootReducer,
   // 可以添加自己的中间件，比如打印日志

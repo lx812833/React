@@ -1,11 +1,13 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { projectListSlice } from './features/projectListSlice';
+import { authSlice } from './features/authSlice';
 import { movieSlice } from './features/movieSlice';
 
 // 合并多个reducer
 export const rootReducer = combineReducers({
   movie: movieSlice.reducer,
-  projectList: projectListSlice.reducer
+  projectList: projectListSlice.reducer,
+  auth: authSlice.reducer
 })
 
 // 包裹createStore

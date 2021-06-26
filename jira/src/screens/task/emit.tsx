@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import { Button, List, Avatar, Space } from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+// import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { selectMovieState, getMovieList } from 'store/features/movieSlice';
 import { FullPageLoading } from 'components/fullPage';
 
@@ -51,7 +51,8 @@ export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: 
   if (loading) {
     return <FullPageLoading />
   }
-
+  
+  // eslint-disable-next-line
   const IconText = ({ icon, text }: { icon: string, text: string }) => (
     <Space>
       {React.createElement(icon)}

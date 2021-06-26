@@ -3,7 +3,7 @@ import { Button, Dropdown, Menu, Table, TableProps } from 'antd';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { Score } from 'components/score';
-import { useEditProject } from 'components/project';
+import { useEditProject, useProjectModal } from 'components/project';
 import styled from '@emotion/styled';
 
 export interface Project {
@@ -28,15 +28,17 @@ export const List = ({ users, ...props }: ListProps) => {
     return Math.random().toString(36).slice(-8)
   }
   // 项目评分与否
-  const { rateProject } = useEditProject()
+  const { mutate } = useEditProject()
+  const rateProject = (id: number) => (pin: boolean) => mutate({ id, pin })
+  // 编辑
+  const { toEdit } = useProjectModal()
+  const handleEditProject = (id: number) => () => toEdit(id)
 
   return <Table pagination={false} rowKey={handleSetKey} columns={[
     {
       title: <Score checked={true} disabled={true} />,
       render(value, project) {
-        return <Score checked={project.pin} onCheckedChange={pin => {
-          rateProject({ id: project.id, pin }).then(props.refresh)
-        }} />
+        return <Score checked={project.pin} onCheckedChange={rateProject(project.id)} />
       }
     },
     {
@@ -70,7 +72,10 @@ export const List = ({ users, ...props }: ListProps) => {
       render(value, project) {
         const overlay = <Menu>
           <Menu.Item key="edit">
-            {props.createProjectBtn}
+            < ButtonNoPadding type="link" onClick={handleEditProject(project.id)}>编辑</ButtonNoPadding>
+          </Menu.Item>
+          <Menu.Item key="delete">
+            < ButtonNoPadding type="link">删除</ButtonNoPadding>
           </Menu.Item>
         </Menu>
         return <Dropdown overlay={overlay}>

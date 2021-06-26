@@ -11,8 +11,17 @@ export const FullPageLoading = () => {
 export const FullPageError = ({ error }: { error: Error | null }) => {
   return <FullPage>
     <DevTools />
-    <Typography.Text type="danger">{error?.message}</Typography.Text>
+    <ErrorTypography error={error} />
   </FullPage>
+}
+
+// 类型守卫
+const isError = (value: any): value is Error => value?.message
+export const ErrorTypography = ({ error }: { error: unknown }) => {
+  if (isError(error)) {
+    return <Typography.Text type="danger">{error?.message}</Typography.Text>
+  }
+  return null
 }
 
 const FullPage = styled.div`

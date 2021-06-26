@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { LoginScreen } from 'unauthenticated-app/login';
 import { RegisterScreen } from 'unauthenticated-app/register';
-import { Card, Button, Divider, Typography } from 'antd';
+import { Card, Button, Divider } from 'antd';
 import styled from '@emotion/styled';
 import logo from 'assets/logo.svg';
 import left from 'assets/left.svg';
 import right from 'assets/right.svg';
 import { useDocumentTitle } from 'utils/index';
+import { ErrorTypography } from 'components/fullPage';
 
 export const UnauthenticatedApp = () => {
   useDocumentTitle("请登录注册", false)
@@ -19,7 +20,7 @@ export const UnauthenticatedApp = () => {
     <ShadowCard>
       <Title>{isRegister ? "请注册" : "请登录"}</Title>
       {isRegister ? <RegisterScreen onError={setError} /> : <LoginScreen onError={setError} />}
-      {error ? <Typography.Text type="danger">{error.message}</Typography.Text> : null}
+      <ErrorTypography error={error} />
       <Divider />
       <Button type="link" onClick={() => setIsRegister(!isRegister)}>
         {isRegister ? "已经有账号了？直接登录" : "没有账号？注册新账号"}

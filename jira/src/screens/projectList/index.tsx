@@ -2,10 +2,11 @@ import { SearchPanel } from './searchPanel';
 import { List } from './list';
 import { useDebounce, useDocumentTitle } from 'utils/index';
 import styled from '@emotion/styled';
-import { Typography, Button } from 'antd';
+import { Button } from 'antd';
 import { useUsers } from 'components/user';
 import { Row } from 'components/row';
 import { useProjects, useProjectsSearchParams, useProjectModal } from 'components/project';
+import { ErrorTypography } from 'components/fullPage';
 
 export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false)
@@ -13,7 +14,7 @@ export const ProjectListScreen = () => {
   const { openProjectModal } = useProjectModal()
 
   const [param, setParam] = useProjectsSearchParams()
-  const { isLoading, error, data: tableList, retry } = useProjects(useDebounce(param, 500))
+  const { isLoading, error, data: tableList } = useProjects(useDebounce(param, 500))
 
   return <Container>
     <Row between={true}>
@@ -21,9 +22,8 @@ export const ProjectListScreen = () => {
       <ButtonNoPadding type="link" onClick={openProjectModal}>创建项目</ButtonNoPadding>
     </Row>
     <SearchPanel users={users || []} param={param} setParam={setParam} />
-    {error ? <Typography.Text type="danger">{error.message}</Typography.Text> : null}
+    <ErrorTypography error={error} />
     <List
-      refresh={retry}
       users={users || []}
       loading={isLoading}
       dataSource={tableList || []}

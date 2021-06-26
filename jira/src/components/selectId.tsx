@@ -6,8 +6,8 @@ type SelectProps = React.ComponentProps<typeof Select>
 
 // Omit: 忽略type中某个属性
 interface SelectIdProps extends Omit<SelectProps, 'value' | 'onChange' | 'options'> {
-  value: string | number | null | undefined,
-  onChange: (value?: number) => void,
+  value?: string | number | null | undefined,
+  onChange?: (value?: number) => void,
   defaultOptionName?: string
   options?: { name: string, id: number }[],
   width?: number
@@ -15,7 +15,7 @@ interface SelectIdProps extends Omit<SelectProps, 'value' | 'onChange' | 'option
 
 export const SelectId = (props: SelectIdProps) => {
   const { value, onChange, defaultOptionName, options, width, ...otherProps } = props
-  return <Select value={options?.length ? handleToNumber(value) : 0} style={{ width }} {...otherProps} onChange={res => onChange(handleToNumber(res) || undefined)}>
+  return <Select value={options?.length ? handleToNumber(value) : 0} style={{ width }} {...otherProps} onChange={res => onChange?.(handleToNumber(res) || undefined)}>
     {
       defaultOptionName ? <Select.Option value={0} key="">{defaultOptionName}</Select.Option> : null
     }

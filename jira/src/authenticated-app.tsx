@@ -14,17 +14,17 @@ import { resetRouter } from 'utils/index';
 export const AuthenticatedApp = () => {
   return (
     <Container>
-      <PageHeader />
-      <Main>
-        <Router>
+      <Router>
+        <PageHeader />
+        <Main>
           <Routes>
             <Route path={"/projects"} element={<ProjectListScreen />} />
             <Route path={"/projects/:projectId/*"} element={<ProjectScreen />} />
             <Navigate to={"/projects"} />
           </Routes>
-        </Router>
-      </Main>
-      <ProjectModal />
+        </Main>
+        <ProjectModal />
+      </Router>
     </Container>
   )
 }

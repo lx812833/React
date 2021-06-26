@@ -5,14 +5,12 @@ import styled from '@emotion/styled';
 import { Typography, Button } from 'antd';
 import { useUsers } from 'components/user';
 import { Row } from 'components/row';
-import { useProjects, useProjectsSearchParams } from 'components/project';
-import { useDispatch } from 'react-redux';
-import { projectListActions } from 'store/features/projectListSlice';
+import { useProjects, useProjectsSearchParams, useProjectModal } from 'components/project';
 
 export const ProjectListScreen = () => {
   useDocumentTitle("项目列表", false)
   const { data: users } = useUsers()
-  const dispatch = useDispatch()
+  const { openProjectModal } = useProjectModal()
 
   const [param, setParam] = useProjectsSearchParams()
   const { isLoading, error, data: tableList, retry } = useProjects(useDebounce(param, 500))
@@ -20,7 +18,7 @@ export const ProjectListScreen = () => {
   return <Container>
     <Row between={true}>
       <h1>项目列表</h1>
-      <ButtonNoPadding type="link" onClick={() => dispatch(projectListActions.openProjectModal())}>创建项目</ButtonNoPadding>
+      <ButtonNoPadding type="link" onClick={openProjectModal}>创建项目</ButtonNoPadding>
     </Row>
     <SearchPanel users={users || []} param={param} setParam={setParam} />
     {error ? <Typography.Text type="danger">{error.message}</Typography.Text> : null}
@@ -32,7 +30,7 @@ export const ProjectListScreen = () => {
       createProjectBtn={
         <ButtonNoPadding
           type="link"
-          onClick={() => dispatch(projectListActions.openProjectModal())}>
+          onClick={openProjectModal}>
           创建项目
         </ButtonNoPadding>
       }

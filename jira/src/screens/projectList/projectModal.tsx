@@ -1,20 +1,17 @@
 import { Drawer, Button } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { projectListActions, selectProjectState } from 'store/features/projectListSlice';
+import { useProjectModal } from 'components/project';
 
 export const ProjectModal = () => {
-  const dispatch = useDispatch()
-  // useSelector：读取store根状态树里的状态值
-  const { projectModalOpen } = useSelector(selectProjectState)
+  const { projectModalOpen, closeProjectModal } = useProjectModal()
 
   return (
     <Drawer
-      onClose={() => dispatch(projectListActions.closeProjectModal())}
+      onClose={closeProjectModal}
       visible={projectModalOpen}
       width="100%"
     >
       project modal
-      <Button onClick={() => dispatch(projectListActions.closeProjectModal())}>关闭</Button>
+      <Button onClick={closeProjectModal}>关闭</Button>
     </Drawer>
   )
 }

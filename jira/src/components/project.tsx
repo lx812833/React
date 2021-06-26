@@ -31,6 +31,20 @@ export const useProjectsSearchParams = () => {
   ] as const
 }
 
+// 通过url管理modal状态
+export const useProjectModal = () => {
+  const [{ projectCreate }, setProjectCreate] = useUrlQueryParam(['projectCreate'])
+
+  const openProjectModal = () => setProjectCreate({ projectCreate: true })
+  const closeProjectModal = () => setProjectCreate({ projectCreate: null })
+
+  return {
+    projectModalOpen: projectCreate === 'true',
+    openProjectModal,
+    closeProjectModal
+  }
+}
+
 export const useEditProject = () => {
   const { handleRunPromise, ...asyncResult } = useAsync()
   const request = useHttp()

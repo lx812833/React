@@ -23,7 +23,11 @@ export const ProjectModal = () => {
   }
 
   useEffect(() => {
-    form.resetFields()
+    if(editngProject) {
+      form.setFieldsValue(editngProject)
+    } else {
+      form.resetFields()
+    }
   }, [editngProject, form])
 
   return (

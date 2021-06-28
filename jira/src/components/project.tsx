@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useCallback } from 'react';
 import { useHttp } from 'utils/http';
 import { useAsync } from 'utils/useAsync';
-import { useUrlQueryParam } from 'utils/url';
+import { useUrlQueryParam, useSetUrlSearchParam } from 'utils/url';
 import { cleanObject } from 'utils/index';
 import { Project } from 'screens/projectList/list'
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -95,13 +95,10 @@ export const useProjectsSearchParams = () => {
 export const useProjectModal = () => {
   const [{ createProject }, setCreateProject] = useUrlQueryParam(['createProject'])
   const [{ editProjectId }, setEditProjectId] = useUrlQueryParam(['editProjectId'])
-
+  const setUrlParams = useSetUrlSearchParam()
+  
   const openProjectModal = () => setCreateProject({ createProject: true })
-  const closeProjectModal = () => {
-    console.log("没执行？？？？")
-    setCreateProject({ createProject: undefined })
-    setEditProjectId({ editProjectId: undefined })
-  }
+  const closeProjectModal = () => setUrlParams({ createProject: "", editProjectId: "" })
   const { data: editngProject, isLoading } = useDetailProject(Number(editProjectId))
   const toEdit = (id: number) => setEditProjectId({ editProjectId: id })
 

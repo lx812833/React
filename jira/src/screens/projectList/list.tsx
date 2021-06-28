@@ -71,11 +71,11 @@ export const List = ({ users, ...props }: ListProps) => {
     {
       render(value, project) {
         const overlay = <Menu>
-          <Menu.Item key="edit">
-            < ButtonNoPadding type="link" onClick={handleEditProject(project.id)}>编辑</ButtonNoPadding>
+          <Menu.Item key="edit" onClick={handleEditProject(project.id)}>
+            编辑
           </Menu.Item>
           <Menu.Item key="delete">
-            < ButtonNoPadding type="link">删除</ButtonNoPadding>
+            删除
           </Menu.Item>
         </Menu>
         return <Dropdown overlay={overlay}>

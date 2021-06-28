@@ -7,12 +7,13 @@ import { Button, List, Avatar, Space } from 'antd';
 import { selectMovieState, getMovieList } from 'store/features/movieSlice';
 import { FullPageLoading } from 'components/fullPage';
 
-export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: Function }) => {
+export const ChildEmit = ({ title, changeTitle, testCallBack }: { title: string, changeTitle: Function, testCallBack: Function }) => {
+  // useCallBack：返回一个函数
+  const childCount = testCallBack()
+
   // react-redux
   const dispatch = useDispatch()
   const { loading, data: movieList } = useSelector(selectMovieState)
-
-  console.log("movieList", movieList)
 
   useEffect(() => {
     dispatch(getMovieList())
@@ -51,7 +52,7 @@ export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: 
   if (loading) {
     return <FullPageLoading />
   }
-  
+
   // eslint-disable-next-line
   const IconText = ({ icon, text }: { icon: string, text: string }) => (
     <Space>
@@ -63,6 +64,7 @@ export const ChildEmit = ({ title, changeTitle }: { title: string, changeTitle: 
   return (
     <div>
       <div onClick={handleChangeTitle}>{title}</div>
+      <div>子组件的count：{childCount}</div>
       <List
         itemLayout="vertical"
         size="large"

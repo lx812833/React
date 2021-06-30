@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lx812833/React/issues"
   },
-  "homepage": "https://github.com/lx812833/React#readme"
+  "homepage": "https://github.com/lx812833/React#readme",
+  "dependencies": {
+    "@ant-design/icons": "^4.6.2"
+  }
 }

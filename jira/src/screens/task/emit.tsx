@@ -2,14 +2,24 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
-import { Button, List, Avatar, Space } from 'antd';
-// import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import { Button, List, Avatar, Space, Input } from 'antd';
+import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { selectMovieState, getMovieList } from 'store/features/movieSlice';
 import { FullPageLoading } from 'components/fullPage';
 
-export const ChildEmit = ({ title, changeTitle, testCallBack }: { title: string, changeTitle: Function, testCallBack: Function }) => {
+interface ChildEmitProps {
+  title: string;
+  changeTitle: Function;
+  info: string;
+  changeInfo: Function;
+  testCallBack: Function;
+}
+
+export const ChildEmit = ({ title, changeTitle, testCallBack, info, changeInfo }: ChildEmitProps) => {
   // useCallBack：返回一个函数
   const childCount = testCallBack()
+  // v-model
+  const [value, setValue] = useState("请输入内容")
 
   // react-redux
   const dispatch = useDispatch()
@@ -53,28 +63,34 @@ export const ChildEmit = ({ title, changeTitle, testCallBack }: { title: string,
     return <FullPageLoading />
   }
 
-  // eslint-disable-next-line
-  const IconText = ({ icon, text }: { icon: string, text: string }) => (
+  const IconText = ({ icon, text }: { icon: any, text: string }) => (
     <Space>
       {React.createElement(icon)}
       {text}
     </Space>
   );
 
+  // 表单元素的v-model
+  const handleSetModel = (e: any) => {
+    setValue(e?.target?.value)
+  }
+
   return (
-    <div>
+    // 根元素：React.Fragment，相当于 <></>
+    <>
       <div onClick={handleChangeTitle}>{title}</div>
+      <Input type="text" onChange={handleSetModel} />
+      <p>表单元素v-model：{value}</p>
+      <Button onClick={() => changeInfo('子组件改变info的值')}>组件v-model：{info}</Button>
+
       <div>子组件的count：{childCount}</div>
-      <List
-        itemLayout="vertical"
-        size="large"
+      <List itemLayout="vertical" size="large" dataSource={movieList}
         pagination={{
           onChange: page => {
             console.log('pagination', page);
           },
           pageSize: 3,
         }}
-        dataSource={movieList}
         footer={
           <div>
             <b>ant design</b> footer part
@@ -83,11 +99,11 @@ export const ChildEmit = ({ title, changeTitle, testCallBack }: { title: string,
         renderItem={item => (
           <List.Item
             key={item.tvId}
-            // actions={[
-            //   <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-            //   <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-            //   <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-            // ]}
+            actions={[
+              <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+              <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+              <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+            ]}
             extra={<img width={272} alt="logo" src={item?.imageUrl} />}
           >
             <List.Item.Meta
@@ -99,7 +115,7 @@ export const ChildEmit = ({ title, changeTitle, testCallBack }: { title: string,
           </List.Item>
         )}
       />
-    </div>
+    </>
   )
 }
 

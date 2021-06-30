@@ -5,11 +5,16 @@ import { ChildEmit, ProgressBar } from './emit';
 export const TaskScreen = () => {
   const ref = useRef(null)
   const [title, setTitle] = useState("hello world")
-  const [count, setCount] = useState(0)
   const handleChangeTitle = (data: string) => {
     setTitle(data)
   }
+  
+  const [info, setInfo] = useState("父组件改变info值")
+  const handleChangeInfo = (data: string) => {
+    setInfo(data)
+  }
 
+  const [count, setCount] = useState(0)
   const testCallBack = useCallback(() => {
     return count * 2
   }, [count])
@@ -40,7 +45,10 @@ export const TaskScreen = () => {
 
       <div onClick={() => console.log("当前dom节点：", ref)}>任务组</div>
       <Button onClick={() => setCount(count + 1)}>父组件的count：{count}</Button>
-      <ChildEmit title={title} changeTitle={handleChangeTitle} testCallBack={testCallBack} />
+      <ChildEmit 
+        title={title} changeTitle={handleChangeTitle} 
+        info={info} changeInfo={handleChangeInfo}
+        testCallBack={testCallBack} />
       <ProgressBar />
     </div>
   )

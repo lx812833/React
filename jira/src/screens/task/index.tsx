@@ -8,7 +8,7 @@ export const TaskScreen = () => {
   const handleChangeTitle = (data: string) => {
     setTitle(data)
   }
-  
+
   const [info, setInfo] = useState("父组件改变info值")
   const handleChangeInfo = (data: string) => {
     setInfo(data)
@@ -34,22 +34,23 @@ export const TaskScreen = () => {
   }, 0)
 
   return (
-    <div ref={ref}>
-      {/* ref 标记当前dom节点 */}
-
+    <>
       当前值：{number}
       { /* 派发更新 */}
       <Button onClick={() => dispatchNumber({ name: 'add' })} >增加</Button>
       <Button onClick={() => dispatchNumber({ name: 'sub' })} >减少</Button>
       <Button onClick={() => dispatchNumber({ name: 'reset', payload: 666 })} >赋值</Button>
 
-      <div onClick={() => console.log("当前dom节点：", ref)}>任务组</div>
+      {/* ref 标记当前dom节点 */}
+      <input ref={ref} type="text" />
+      <Button onClick={() => console.log("当前dom节点：", ref, ref.current)}>Ref</Button>
+
       <Button onClick={() => setCount(count + 1)}>父组件的count：{count}</Button>
-      <ChildEmit 
-        title={title} changeTitle={handleChangeTitle} 
+      <ChildEmit
+        title={title} changeTitle={handleChangeTitle}
         info={info} changeInfo={handleChangeInfo}
         testCallBack={testCallBack} />
       <ProgressBar />
-    </div>
+    </>
   )
 }

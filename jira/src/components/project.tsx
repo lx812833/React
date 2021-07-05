@@ -48,12 +48,14 @@ export const useProjects = (param?: Partial<Project>) => {
 export const useEditProject = () => {
   const request = useHttp()
   const queryClient = useQueryClient()
+  const [searchParams] = useProjectsSearchParams()
+  const queryKey = ['projects', searchParams]
   return useMutation((params: Partial<Project>) => request(`projects/${params.id}`, {
     data: params,
     method: 'PATCH'
   }), {
     // 成功时返回回调，执行 useProjects （key值需一致）
-    onSuccess: () => queryClient.invalidateQueries('projects')
+    onSuccess: () => queryClient.invalidateQueries(queryKey)
   })
 }
 
@@ -96,7 +98,7 @@ export const useProjectModal = () => {
   const [{ createProject }, setCreateProject] = useUrlQueryParam(['createProject'])
   const [{ editProjectId }, setEditProjectId] = useUrlQueryParam(['editProjectId'])
   const setUrlParams = useSetUrlSearchParam()
-  
+
   const openProjectModal = () => setCreateProject({ createProject: true })
   const closeProjectModal = () => setUrlParams({ createProject: "", editProjectId: "" })
   const { data: editngProject, isLoading } = useDetailProject(Number(editProjectId))

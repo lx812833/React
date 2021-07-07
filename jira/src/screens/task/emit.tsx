@@ -6,6 +6,7 @@ import { Button, List, Avatar, Space, Input } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { selectMovieState, getMovieList } from 'store/features/movieSlice';
 import { FullPageLoading } from 'components/fullPage';
+import styles from './emit.module.css';
 
 interface ChildEmitProps {
   title: string;
@@ -78,7 +79,7 @@ export const ChildEmit = ({ title, changeTitle, testCallBack, info, changeInfo }
   return (
     // 根元素：React.Fragment，相当于 <></>
     <>
-      <div onClick={handleChangeTitle}>{title}</div>
+      <div className={styles.emit_container} onClick={handleChangeTitle}>{title}</div>
       <Input type="text" onChange={handleSetModel} />
       <p>表单元素v-model：{value}</p>
       <Button onClick={() => changeInfo('子组件改变info的值')}>组件v-model：{info}</Button>

@@ -1,9 +1,11 @@
 import { GlobalOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, Layout, Menu, Typography } from "antd";
+import { useHistory } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.css";
 
 export const Header = () => {
+  const history = useHistory();
   const menuList = [
     { id: 1, label: "旅游首页" },
     { id: 2, label: "周末游" },
@@ -38,16 +40,18 @@ export const Header = () => {
             语言
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
-            <Button>注册</Button>
-            <Button>登录</Button>
+            <Button onClick={() => history.push("register")}>注册</Button>
+            <Button onClick={() => history.push("signIn")}>登录</Button>
           </Button.Group>
         </div>
       </div>
       <Layout.Header className={styles['main-header']}>
-        <img src={logo} alt="logo" className={styles['app-logo']} />
-        <Typography.Title level={3} className={styles.title}>
-          React 旅游网
-        </Typography.Title>
+        <span onClick={() => history.push("/")}>
+          <img src={logo} alt="logo" className={styles['app-logo']} />
+          <Typography.Title level={3} className={styles.title}>
+            React 旅游网
+          </Typography.Title>
+        </span>
         <Input.Search placeholder="请输入旅游目的地、主题或关键字" className={styles['search-input']} />
       </Layout.Header>
       <Menu mode="horizontal" className={styles['main-menu']}>

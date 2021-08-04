@@ -1,4 +1,4 @@
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps, Link } from "react-router-dom";
 import { Image, Typography } from "antd";
 
 interface PropType extends RouteComponentProps {
@@ -11,7 +11,16 @@ interface PropType extends RouteComponentProps {
 
 const ProductImageComponent = ({ id, size, imageSrc, price, title, history, location, match }: PropType) => {
   return (
-    <div onClick={() => history.push(`detail/${id}`)}>
+    /**
+     * 使用history方式导航
+     * <div onClick={() => history.push(`detail/${id}`)}></div>
+     */
+
+    /**
+     * 使用Link to 方式导航
+     * 转换为 a标签，可以鼠标右键新开窗口
+     */
+    <Link to={`detail/${id}`}>
       {size === "large" ? (
         <Image src={imageSrc} height={285} width={490} />
       ) : (
@@ -25,7 +34,7 @@ const ProductImageComponent = ({ id, size, imageSrc, price, title, history, loca
           ¥ {price} 起
         </Typography.Text>
       </div>
-    </div>
+    </Link>
   )
 }
 

@@ -5,11 +5,10 @@ interface MatchParams {
 }
 
 export const DetailPage = (props: RouteComponentProps<MatchParams>) => {
-  const { match } = props;
+  const touristRouteId = props?.match?.params?.touristRouteId;
   return (
     <>
-      <div>路由详情：{match}</div>
-      <div>路由详情222：{match.params.touristRouteId}</div>
+      <div>路由详情：{touristRouteId}</div>
     </>
   )
 }

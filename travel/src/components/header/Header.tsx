@@ -3,8 +3,10 @@ import { Button, Dropdown, Input, Layout, Menu, Typography } from "antd";
 import { useHistory } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.css";
+import store from "../../redux/store";
 
 export const Header = () => {
+  const storeState = store.getState();
   const history = useHistory();
   const menuList = [
     { id: 1, label: "旅游首页" },
@@ -24,20 +26,32 @@ export const Header = () => {
     { id: 15, label: "爱玩户外" },
     { id: 16, label: "保险" }
   ]
+  // 切换语言
+  const handleChangeLanguage = ({ key }: any) => {
+    console.log("切换语言", key);
+    const action = {
+      type: "change_language",
+      payload: key
+    }
+    store.dispatch(action);
+  }
   return (
     <div className={styles['app-header']}>
       <div className={styles['top-header']}>
         <div className={styles.inner}>
           <Typography.Text>让旅游更幸福</Typography.Text>
           <Dropdown.Button style={{ marginLeft: 15 }} overlay={
-            <Menu>
-              <Menu.Item key="cn">中文</Menu.Item>
-              <Menu.Item key="en">英文</Menu.Item>
+            <Menu onClick={handleChangeLanguage}>
+              {
+                storeState?.languageList.map(item => {
+                  return <Menu.Item key={item.code}>{item.name}</Menu.Item>
+                })
+              }
             </Menu>
           }
             icon={<GlobalOutlined />}
           >
-            语言
+            {storeState?.language === "zh" ? "中文" : "English"}
           </Dropdown.Button>
           <Button.Group className={styles['button-group']}>
             <Button onClick={() => history.push("register")}>注册</Button>

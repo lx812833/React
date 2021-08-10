@@ -28,7 +28,6 @@ export const Header = () => {
   ]
   // 切换语言
   const handleChangeLanguage = ({ key }: any) => {
-    console.log("切换语言", key);
     const action = {
       type: "change_language",
       payload: key

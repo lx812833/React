@@ -1,4 +1,4 @@
-interface LanguageState {
+export interface LanguageState {
   language: "zh" | "en";
   languageList: {
     name: string;
@@ -6,7 +6,12 @@ interface LanguageState {
   }[];
 }
 
-const defauleState: LanguageState = {
+interface ActionState {
+  type: string;
+  payload: string;
+}
+
+const defaultState: LanguageState = {
   language: "zh",
   languageList: [
     { name: "中文", code: "zh" },
@@ -14,10 +19,12 @@ const defauleState: LanguageState = {
   ]
 }
 
-export default (state = defauleState, action: any) => {
-  if(action.type === "change_language") {
-    const newState = {...state, language: action.payload};
-    return newState;
+export default (state = defaultState, action: ActionState | any) => {
+  switch (action.type) {
+    case "change_language":
+      // state中数据不可更改
+      return { ...state, language: action.payload };
+    default:
+      return state;
   }
-  return state;
 }

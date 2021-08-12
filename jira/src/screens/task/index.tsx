@@ -1,6 +1,6 @@
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import { useState, useCallback, useRef, useReducer } from 'react';
-import { ChildEmit, ProgressBar } from './emit';
+import { ChildEmit, ProgressBar, SonCommunication } from './emit';
 
 export const TaskScreen = () => {
   const ref = useRef(null)
@@ -18,6 +18,9 @@ export const TaskScreen = () => {
   const testCallBack = useCallback(() => {
     return count * 2
   }, [count])
+
+  const [childSay, setChildSay] = useState("")
+  const [fatherSay, setFatherSay] = useState("")
 
   // useReducer
   const [number, dispatchNumber] = useReducer((state: number, action: any) => {
@@ -46,6 +49,14 @@ export const TaskScreen = () => {
       <Button onClick={() => console.log("当前dom节点：", ref, ref.current)}>Ref</Button>
 
       <Button onClick={() => setCount(count + 1)}>父组件的count：{count}</Button>
+
+      <div className="box father" >
+        父组件
+        <div> 子组件传递的信息：{childSay} </div>
+        <Input placeholder="我对子组件说" onChange={(e) => setFatherSay(e.target.value)} />
+        <SonCommunication fatherSay={fatherSay} sayFather={setChildSay} />
+      </div>
+
       <ChildEmit
         title={title} changeTitle={handleChangeTitle}
         info={info} changeInfo={handleChangeInfo}

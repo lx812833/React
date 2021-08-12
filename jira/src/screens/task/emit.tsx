@@ -157,6 +157,19 @@ export const ProgressBar = () => {
   )
 }
 
+// 父子组件通信方式
+export const SonCommunication = (props: any) => {
+  const { fatherSay, sayFather } = props;
+  return (
+    <div>
+      <h3>子组件：</h3>
+      <h4>父组件传递的信息: {fatherSay}</h4>
+      <Input onChange={(e) => sayFather(e.target.value)} />
+    </div>
+  )
+}
+
+
 const Player = styled.div`
   padding: 10rem;
   Button {

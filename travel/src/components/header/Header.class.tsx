@@ -13,25 +13,6 @@ interface KeyState {
   key: string;
 }
 
-const menuList = [
-  { id: 1, label: "旅游首页" },
-  { id: 2, label: "周末游" },
-  { id: 3, label: "跟团游" },
-  { id: 4, label: "自由行" },
-  { id: 5, label: "私家团" },
-  { id: 6, label: "邮轮" },
-  { id: 7, label: "酒店+景点" },
-  { id: 8, label: "当地玩乐" },
-  { id: 9, label: "主题游" },
-  { id: 10, label: "定制游" },
-  { id: 11, label: "游学" },
-  { id: 12, label: "签证" },
-  { id: 13, label: "企业游" },
-  { id: 14, label: "高端游" },
-  { id: 15, label: "爱玩户外" },
-  { id: 16, label: "保险" }
-]
-
 class HeaderComment extends React.Component<RouteComponentProps, State> {
   constructor(props: any) {
     super(props);
@@ -50,6 +31,25 @@ class HeaderComment extends React.Component<RouteComponentProps, State> {
       language: storeState.language
     })
   }
+
+  menuList = [
+    { id: 1, label: "旅游首页" },
+    { id: 2, label: "周末游" },
+    { id: 3, label: "跟团游" },
+    { id: 4, label: "自由行" },
+    { id: 5, label: "私家团" },
+    { id: 6, label: "邮轮" },
+    { id: 7, label: "酒店+景点" },
+    { id: 8, label: "当地玩乐" },
+    { id: 9, label: "主题游" },
+    { id: 10, label: "定制游" },
+    { id: 11, label: "游学" },
+    { id: 12, label: "签证" },
+    { id: 13, label: "企业游" },
+    { id: 14, label: "高端游" },
+    { id: 15, label: "爱玩户外" },
+    { id: 16, label: "保险" }
+  ]
 
   // 切换语言
   handleChangeLanguage = ({ key }: KeyState) => {
@@ -98,7 +98,7 @@ class HeaderComment extends React.Component<RouteComponentProps, State> {
         </Layout.Header>
         <Menu mode="horizontal" className={styles['main-menu']}>
           {
-            menuList?.map(item =>
+            this.menuList.map(item =>
               <Menu.Item key={item.id}>{item.label}</Menu.Item>
             )
           }

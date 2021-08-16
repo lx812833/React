@@ -6,6 +6,7 @@ import { LanguageState } from "../../redux/languageRedux";
 import store from "../../redux/store";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.css";
+import { withTranslation, WithTranslation } from "react-i18next";
 
 interface State extends LanguageState { }
 
@@ -13,7 +14,7 @@ interface KeyState {
   key: string;
 }
 
-class HeaderComment extends React.Component<RouteComponentProps, State> {
+class HeaderComponnet extends React.Component<RouteComponentProps & WithTranslation, State> {
   constructor(props: any) {
     super(props);
     const storeState = store.getState();
@@ -32,25 +33,6 @@ class HeaderComment extends React.Component<RouteComponentProps, State> {
     })
   }
 
-  menuList = [
-    { id: 1, label: "旅游首页" },
-    { id: 2, label: "周末游" },
-    { id: 3, label: "跟团游" },
-    { id: 4, label: "自由行" },
-    { id: 5, label: "私家团" },
-    { id: 6, label: "邮轮" },
-    { id: 7, label: "酒店+景点" },
-    { id: 8, label: "当地玩乐" },
-    { id: 9, label: "主题游" },
-    { id: 10, label: "定制游" },
-    { id: 11, label: "游学" },
-    { id: 12, label: "签证" },
-    { id: 13, label: "企业游" },
-    { id: 14, label: "高端游" },
-    { id: 15, label: "爱玩户外" },
-    { id: 16, label: "保险" }
-  ]
-
   // 切换语言
   handleChangeLanguage = ({ key }: KeyState) => {
     const action = {
@@ -61,13 +43,30 @@ class HeaderComment extends React.Component<RouteComponentProps, State> {
   };
 
   render() {
-    console.log("props", this.props);
-    const { history } = this.props;
+    const { history, t } = this.props;
+    const menuList = [
+      { id: 1, label: t("header.home_page") },
+      { id: 2, label: t("header.weekend") },
+      { id: 3, label: t("header.group") },
+      { id: 4, label: t("header.backpack") },
+      { id: 5, label: t("header.private") },
+      { id: 6, label: t("header.cruise") },
+      { id: 7, label: t("header.hotel") },
+      { id: 8, label: t("header.local") },
+      { id: 9, label: t("header.theme") },
+      { id: 10, label: t("header.custom") },
+      { id: 11, label: t("header.study") },
+      { id: 12, label: t("header.visa") },
+      { id: 13, label: t("header.enterprise") },
+      { id: 14, label: t("header.high_end") },
+      { id: 15, label: t("header.outdoor") },
+      { id: 16, label: t("header.insurance") }
+    ]
     return (
       <div className={styles['app-header']}>
         <div className={styles['top-header']}>
           <div className={styles.inner}>
-            <Typography.Text>让旅游更幸福</Typography.Text>
+            <Typography.Text>{t("header.slogan")}</Typography.Text>
             <Dropdown.Button style={{ marginLeft: 15 }} overlay={
               <Menu onClick={this.handleChangeLanguage}>
                 {
@@ -98,7 +97,7 @@ class HeaderComment extends React.Component<RouteComponentProps, State> {
         </Layout.Header>
         <Menu mode="horizontal" className={styles['main-menu']}>
           {
-            this.menuList.map(item =>
+            menuList.map(item =>
               <Menu.Item key={item.id}>{item.label}</Menu.Item>
             )
           }
@@ -108,4 +107,4 @@ class HeaderComment extends React.Component<RouteComponentProps, State> {
   }
 }
 
-export const Header = withRouter(HeaderComment);
+export const Header = withTranslation()(withRouter(HeaderComponnet));

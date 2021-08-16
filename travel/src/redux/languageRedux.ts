@@ -1,3 +1,5 @@
+import i18n from "i18next";
+
 export interface LanguageState {
   language: "zh" | "en";
   languageList: {
@@ -22,6 +24,7 @@ const defaultState: LanguageState = {
 export default (state = defaultState, action: ActionState | any) => {
   switch (action.type) {
     case "change_language":
+      i18n.changeLanguage(action.payload);
       // state中数据不可更改
       return { ...state, language: action.payload };
     default:

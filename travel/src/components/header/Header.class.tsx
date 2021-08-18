@@ -2,17 +2,14 @@ import React from "react";
 import { GlobalOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, Layout, Menu, Typography } from "antd";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { LanguageState } from "../../redux/languageRedux";
+import { LanguageState } from "../../redux/language/languageRedux";
+import { changeLanguageActionCreator } from "../../redux/language/languageActions";
 import store from "../../redux/store";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.css";
 import { withTranslation, WithTranslation } from "react-i18next";
 
 interface State extends LanguageState { }
-
-interface KeyState {
-  key: string;
-}
 
 class HeaderComponnet extends React.Component<RouteComponentProps & WithTranslation, State> {
   constructor(props: any) {
@@ -32,13 +29,9 @@ class HeaderComponnet extends React.Component<RouteComponentProps & WithTranslat
       language: storeState.language
     })
   }
-
   // 切换语言
-  handleChangeLanguage = ({ key }: KeyState) => {
-    const action = {
-      type: "change_language",
-      payload: key // 有效荷载（保存传递的数据）
-    }
+  handleChangeLanguage = (e: any) => {
+    const action = changeLanguageActionCreator(e.key);
     store.dispatch(action);
   };
 

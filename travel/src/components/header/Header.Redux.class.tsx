@@ -2,39 +2,37 @@ import React from "react";
 import { GlobalOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, Layout, Menu, Typography } from "antd";
 import { RouteComponentProps, withRouter } from "react-router-dom";
-import { changeLanguageActionCreator } from '../../redux/language/languageActions';
-import { RootState } from "../../redux/store";
+import { LanguageState } from "../../redux/language/languageRedux";
+import { changeLanguageActionCreator } from "../../redux/language/languageActions";
+import store from "../../redux/store";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.css";
 import { withTranslation, WithTranslation } from "react-i18next";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    language: state.language,
-    languageList: state.languageList
-  }
-}
+interface State extends LanguageState { }
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    handleChangeLanguage: (code: "zh" | "en") => {
-      const action = changeLanguageActionCreator(code);
-      dispatch(action);
+class HeaderComponnet extends React.Component<RouteComponentProps & WithTranslation, State> {
+  constructor(props: any) {
+    super(props);
+    const storeState = store.getState();
+    this.state = {
+      language: storeState.language,
+      languageList: storeState.languageList
     }
+    // 订阅
+    store.subscribe(this.handleStoreChange)
   }
-}
 
-type PropsType = RouteComponentProps & // react-router 路由props类型
-WithTranslation & // i18n props类型
-ReturnType<typeof mapStateToProps> & // redux store 映射类型
-ReturnType<typeof mapDispatchToProps> // redux dispatch 映射类型
-
-class HeaderComponnet extends React.Component<PropsType> {
+  handleStoreChange = () => {
+    const storeState = store.getState();
+    this.setState({
+      language: storeState.language
+    })
+  }
   // 切换语言
   handleChangeLanguage = (e: any) => {
-    this.props.handleChangeLanguage(e.key);
+    const action = changeLanguageActionCreator(e.key);
+    store.dispatch(action);
   };
 
   render() {
@@ -65,7 +63,7 @@ class HeaderComponnet extends React.Component<PropsType> {
             <Dropdown.Button style={{ marginLeft: 15 }} overlay={
               <Menu onClick={this.handleChangeLanguage}>
                 {
-                  this.props?.languageList.map(item => {
+                  this.state?.languageList.map(item => {
                     return <Menu.Item key={item.code}>{item.name}</Menu.Item>
                   })
                 }
@@ -73,7 +71,7 @@ class HeaderComponnet extends React.Component<PropsType> {
             }
               icon={<GlobalOutlined />}
             >
-              {this.props?.language === "zh" ? "中文" : "English"}
+              {this.state?.language === "zh" ? "中文" : "English"}
             </Dropdown.Button>
             <Button.Group className={styles['button-group']}>
               <Button onClick={() => history.push("register")}>注册</Button>
@@ -102,7 +100,4 @@ class HeaderComponnet extends React.Component<PropsType> {
   }
 }
 
-// 使用connect连接store
-export const Header = connect(mapStateToProps, mapDispatchToProps)(
-  withTranslation()(withRouter(HeaderComponnet))
-);
+export const Header = withTranslation()(withRouter(HeaderComponnet));

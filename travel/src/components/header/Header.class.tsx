@@ -4,11 +4,11 @@ import { Button, Dropdown, Input, Layout, Menu, Typography } from "antd";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import { changeLanguageActionCreator } from '../../redux/language/languageActions';
 import { RootState } from "../../redux/store";
-import logo from "../../assets/logo.svg";
-import styles from "./Header.module.css";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import logo from "../../assets/logo.svg";
+import styles from "./Header.module.css";
 
 const mapStateToProps = (state: RootState) => {
   return {

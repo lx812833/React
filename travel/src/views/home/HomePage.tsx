@@ -1,6 +1,6 @@
 import { Col, Row, Typography } from "antd";
-import styles from "./HomePage.module.css";
-import { Header, Footer, SideMenu, Carousel, ProductCollection } from "../../components/index";
+import { SideMenu, Carousel, ProductCollection } from "../../components/index";
+import { MainLayout } from "../../layout/mainLayout/MainLayout";
 import { productList1, productList2, productList3 } from "../../assets/mock";
 import sideImage from "../../assets/images/sider_2019_12-09.png";
 import sideImage2 from "../../assets/images/sider_2019_02-04.png";
@@ -11,9 +11,7 @@ export const HomePage = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Header />
-
-      <div className={styles['page-content']}>
+      <MainLayout>
         <Row style={{ paddingTop: 20 }}>
           <Col span={6}>
             <SideMenu />
@@ -46,9 +44,7 @@ export const HomePage = () => {
           sideImage={sideImage3}
           products={productList3}
         />
-      </div>
-
-      <Footer />
+      </MainLayout>
     </>
   )
 }

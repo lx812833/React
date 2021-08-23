@@ -1,5 +1,9 @@
+import { UserLayout } from "../../layout/userLayout/UserLayout";
+
 export const RegisterPage = () => {
   return (
-    <div>注册页</div>
+    <UserLayout>
+      <div>注册页</div>
+    </UserLayout>
   )
 }

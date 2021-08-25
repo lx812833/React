@@ -1,9 +1,10 @@
 import { UserLayout } from "../../layout/userLayout/UserLayout";
+import { RegisterForm } from "./RegisterForm";
 
 export const RegisterPage = () => {
   return (
     <UserLayout>
-      <div>注册页</div>
+      <RegisterForm />
     </UserLayout>
   )
 }

@@ -1,9 +1,31 @@
 import { Form, Input, Button, Checkbox } from "antd";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 import styles from "./RegisterPage.module.css";
 
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
+
 export const RegisterForm = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const history = useHistory();
+
+  const onFinish = async (values: any) => {
+    try {
+      await axios.post("http://123.56.149.216:8080/auth/register", {
+        email: values.username,
+        password: values.password,
+        confirmPassword: values.confirm,
+      });
+      history.push("/signIn/");
+    } catch (error) {
+      alert("注册失败！");
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -11,6 +33,7 @@ export const RegisterForm = () => {
   };
   return (
     <Form
+      {...layout}
       name="basic"
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
@@ -43,7 +66,7 @@ export const RegisterForm = () => {
           { required: true, message: '请输入确认密码!' },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if(!value || getFieldValue("password") === value) {
+              if (!value || getFieldValue("password") === value) {
                 return Promise.resolve();
               }
               return Promise.reject("输入密码不一致!");
@@ -54,11 +77,11 @@ export const RegisterForm = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item name="remember" valuePropName="checked" {...tailLayout}>
         <Checkbox>Remember me</Checkbox>
       </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+      <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

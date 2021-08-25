@@ -1,9 +1,10 @@
 import { UserLayout } from "../../layout/userLayout/UserLayout";
+import { SignInForm } from "./SignInForm";
 
 export const SignInPage = () => {
   return (
     <UserLayout>
-      <div>登录页</div>
+      <SignInForm />
     </UserLayout>
   )
 }

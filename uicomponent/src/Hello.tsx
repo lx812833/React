@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useMousePosition } from '../src/hooks/useMousePosition';
 import { useUrlLoader } from '../src/hooks/useUrlLoader';
 interface IHelloProps {
@@ -12,16 +12,26 @@ interface IShowPicture {
 
 export const Hello: React.FC<IHelloProps> = (props) => {
   const [like, setLike] = useState(0);
+  const times = useRef(0);
+  const domRef = useRef<HTMLInputElement>(null);
   const position = useMousePosition();
   const [data, loading] = useUrlLoader("https://dog.ceo/api/breeds/image/random", [like]);
   const dogResult = data as IShowPicture;
 
+  useEffect(() => {
+    if(domRef && domRef.current) {
+      domRef.current.focus(); // domRef.current DOM节点
+    }
+  })
+
   return (
     <>
+      <input type="text" ref={domRef} />
+
       <h2>{props.message}</h2>
 
-      <button onClick={() => setLike(like + 1)}>
-        {like}赞
+      <button onClick={() => { setLike(like + 1); times.current++ }}>
+        {like}赞  {times.current}
       </button>
       <h4>X: {position.x}, Y: {position.y}</h4>
 

@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useMousePosition } from '../src/hooks/useMousePosition';
 import { useUrlLoader } from '../src/hooks/useUrlLoader';
+import { themeContext } from "./App";
 interface IHelloProps {
   message?: string;
 }
@@ -17,9 +18,10 @@ export const Hello: React.FC<IHelloProps> = (props) => {
   const position = useMousePosition();
   const [data, loading] = useUrlLoader("https://dog.ceo/api/breeds/image/random", [like]);
   const dogResult = data as IShowPicture;
+  const theme = useContext(themeContext);
 
   useEffect(() => {
-    if(domRef && domRef.current) {
+    if (domRef && domRef.current) {
       domRef.current.focus(); // domRef.current DOM节点
     }
   })
@@ -30,12 +32,12 @@ export const Hello: React.FC<IHelloProps> = (props) => {
 
       <h2>{props.message}</h2>
 
-      <button onClick={() => { setLike(like + 1); times.current++ }}>
+      <button style={theme} onClick={() => { setLike(like + 1); times.current++ }}>
         {like}赞  {times.current}
       </button>
       <h4>X: {position.x}, Y: {position.y}</h4>
 
-      {loading ? <p>加载中</p> : <img src={dogResult && dogResult.message} width="100px" />}
+      {loading ? <p>加载中</p> : <img src={dogResult && dogResult.message} alt="dog" width="100px" />}
     </>
   )
 }

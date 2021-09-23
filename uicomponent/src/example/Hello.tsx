@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { useMousePosition } from '../src/hooks/useMousePosition';
-import { useUrlLoader } from '../src/hooks/useUrlLoader';
+import { useMousePosition } from '../hooks/useMousePosition';
+import { useUrlLoader } from '../hooks/useUrlLoader';
 import { themeContext } from "./App";
 interface IHelloProps {
   message?: string;

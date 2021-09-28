@@ -17,30 +17,41 @@ interface BaseButtonProps {
   className?: string;
   disabled?: boolean;
   size?: ButtonSize;
-  type?: ButtonType;
+  btnType?: ButtonType;
   href?: string;
   children: React.ReactNode
 }
 
-export const Button: React.FC<BaseButtonProps> = (props) => {
-  const { disabled, size, type, href, children } = props;
-  const classes = classNams("btn", {
-    [`btn-${type}`]: type,
+// 内置button标签：React.ButtonHTMLAttributes<HTMLElement>
+type NativeButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLElement>;
+// a标签：React.AnchorHTMLAttributes<HTMLElement>
+type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>;
+
+// Partial：设置类型皆为可选
+// &：使用ts类型别名定义交叉类型
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>;
+
+export const Button: React.FC<ButtonProps> = (props) => {
+  // resetProps：button 与 a标签其他内置属性
+  const { disabled, size, btnType, href, children, className, ...resetProps } = props;
+  
+  const classes = classNams("btn", className, {
+    [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
-    "disabled": (type === ButtonType.Link) && disabled,
+    "disabled": (btnType === ButtonType.Link) && disabled,
   })
-  if (type === ButtonType.Link && href) {
+  if (btnType === ButtonType.Link && href) {
     return (
-      <a className={classes} href={href}>{children}</a>
+      <a className={classes} href={href} {...resetProps}>{children}</a>
     )
   } else {
     return (
-      <button className={classes} disabled={disabled}>{children}</button>
+      <button className={classes} disabled={disabled} {...resetProps}>{children}</button>
     )
   }
 }
 
 Button.defaultProps = {
   disabled: false,
-  type: ButtonType.Default
+  btnType: ButtonType.Default
 }

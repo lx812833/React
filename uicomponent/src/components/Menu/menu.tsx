@@ -26,7 +26,8 @@ export const Menu: React.FC<MenuProps> = (props) => {
   const { className, mode, style, children, defaultIndex, onSelect } = props;
   const [curActive, setCurActive] = useState(defaultIndex);
   const classes = classNams("menu", className, {
-    "menu-vertical": mode === "vertical"
+    "menu-vertical": mode === "vertical",
+    "menu-horizontal": mode !== "vertical"
   })
   const handleClick = (index: number) => {
     setCurActive(index);
@@ -45,7 +46,7 @@ export const Menu: React.FC<MenuProps> = (props) => {
       // 使用React.cloneElement将数组index值注入到Menu子组件MenuItem中
       const element = child as React.FunctionComponentElement<MenuItemProps>;
       const { displayName } = element.type;
-      if (displayName === "menuItem") {
+      if (displayName === "menuItem" || displayName === "subMenu") {
         return React.cloneElement(element, {
           index
         });

@@ -1,6 +1,7 @@
 import { Button, ButtonType, ButtonSize } from "./components/Button/button";
 import { Menu } from "./components/Menu/menu";
 import { MenuItem } from './components/Menu/menuItem';
+import { SubMenu } from "./components/Menu/subMenu";
 
 function App() {
   return (
@@ -18,11 +19,15 @@ function App() {
         </>
 
         <>
-          <Menu defaultIndex={1} onSelect={index => alert(index)}>
-            <MenuItem>1</MenuItem>
-            <MenuItem disabled>2</MenuItem>
-            <MenuItem>3</MenuItem>
-            <MenuItem>4</MenuItem>
+          <Menu defaultIndex={1} mode="vertical">
+            <MenuItem>menu 1</MenuItem>
+            <MenuItem disabled>menu 2</MenuItem>
+            <SubMenu title="dropdown">
+              <MenuItem>dropdown-1</MenuItem>
+              <MenuItem>dropdown-2</MenuItem>
+              <MenuItem>dropdown-3</MenuItem>
+            </SubMenu>
+            <MenuItem>menu 4</MenuItem>
           </Menu>
         </>
       </header>

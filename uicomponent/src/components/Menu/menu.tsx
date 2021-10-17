@@ -48,5 +48,5 @@ export const Menu: React.FC<MenuProps> = (props) => {
 
 Menu.defaultProps = {
   defaultIndex: 0,
-  mode: "vertical"
+  mode: "horizontal"
 }

@@ -1,4 +1,6 @@
 import { Button, ButtonType, ButtonSize } from "./components/Button/button";
+import { Menu } from "./components/Menu/menu";
+import { MenuItem } from './components/Menu/menuItem';
 
 function App() {
   return (
@@ -13,6 +15,15 @@ function App() {
           <Button btnType={ButtonType.Link} href="https://google.com"> link button </Button>
           <Button disabled>disabled</Button>
           <Button btnType={ButtonType.Link} href="https://google.com" disabled> disabled link button </Button>
+        </>
+
+        <>
+          <Menu defaultIndex={1} onSelect={index => alert(index)}>
+            <MenuItem index={1}>1</MenuItem>
+            <MenuItem index={2} disabled>2</MenuItem>
+            <MenuItem index={3}>3</MenuItem>
+            <MenuItem index={4}>4</MenuItem>
+          </Menu>
         </>
       </header>
     </div>

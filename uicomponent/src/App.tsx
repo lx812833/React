@@ -19,10 +19,10 @@ function App() {
 
         <>
           <Menu defaultIndex={1} onSelect={index => alert(index)}>
-            <MenuItem index={1}>1</MenuItem>
-            <MenuItem index={2} disabled>2</MenuItem>
-            <MenuItem index={3}>3</MenuItem>
-            <MenuItem index={4}>4</MenuItem>
+            <MenuItem>1</MenuItem>
+            <MenuItem disabled>2</MenuItem>
+            <MenuItem>3</MenuItem>
+            <MenuItem>4</MenuItem>
           </Menu>
         </>
       </header>

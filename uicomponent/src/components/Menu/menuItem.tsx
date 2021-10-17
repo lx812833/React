@@ -3,7 +3,7 @@ import classNams from "classnames";
 import { MenuContext } from "./menu";
 
 export interface MenuItemProps {
-  index: number;
+  index?: number;
   disabled?: boolean;
   className?: string;
   style?: React.CSSProperties;
@@ -17,7 +17,7 @@ export const MenuItem: React.FC<MenuItemProps> = (props) => {
     "is-active": context.index === index
   })
   const handleItemClick = () => {
-    if (context.onSelect && !disabled) {
+    if (context.onSelect && !disabled && (typeof index === "number")) {
       context.onSelect(index);
     }
   }
@@ -28,3 +28,6 @@ export const MenuItem: React.FC<MenuItemProps> = (props) => {
     </li>
   )
 }
+
+// 限制Menu组件的children只能为MenuItem，加以 displayName 区分。
+MenuItem.displayName = "menuItem";

@@ -19,7 +19,7 @@ function App() {
         </>
 
         <>
-          <Menu defaultIndex={1} mode="vertical">
+          <Menu defaultIndex={"1"} mode="vertical" defaultOpenSubmenus={['2']} onSelect={(index) => {console.log("点击的", index)}}>
             <MenuItem>menu 1</MenuItem>
             <MenuItem disabled>menu 2</MenuItem>
             <SubMenu title="dropdown">

@@ -11,14 +11,14 @@ export interface MenuProps {
   mode?: MenuMode;
   style?: React.CSSProperties;
   onSelect?: SelectedCallback;
-  defaultOpenSubmenus?: string[]; // 默认展开submenu哪些项
+  defaultOpenSubMenus?: string[]; // 默认展开submenu哪些项
 }
 
 interface IMenuContext {
   index: string;
   onSelect?: SelectedCallback;
   mode?: MenuMode,
-  defaultOpenSubmenus?: string[];
+  defaultOpenSubMenus?: string[];
 }
 
 export const MenuContext = createContext<IMenuContext>({
@@ -26,7 +26,7 @@ export const MenuContext = createContext<IMenuContext>({
 })
 
 export const Menu: React.FC<MenuProps> = (props) => {
-  const { className, mode, defaultOpenSubmenus, style, children, defaultIndex, onSelect } = props;
+  const { className, mode, defaultOpenSubMenus, style, children, defaultIndex, onSelect } = props;
   const [curActive, setCurActive] = useState(defaultIndex);
   const classes = classNams("menu", className, {
     "menu-vertical": mode === "vertical",
@@ -42,7 +42,7 @@ export const Menu: React.FC<MenuProps> = (props) => {
     index: curActive ? curActive : "0",
     onSelect: handleClick,
     mode,
-    defaultOpenSubmenus
+    defaultOpenSubMenus
   }
 
   const renderChildren = () => {
@@ -73,5 +73,5 @@ export const Menu: React.FC<MenuProps> = (props) => {
 Menu.defaultProps = {
   defaultIndex: "0",
   mode: "horizontal",
-  defaultOpenSubmenus: []
+  defaultOpenSubMenus: []
 }

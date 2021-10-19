@@ -11,7 +11,7 @@ export interface SubMenuProps {
 
 export const SubMenu: React.FC<SubMenuProps> = (props) => {
   const context = useContext(MenuContext);
-  const openedSubMenus = context.defaultOpenSubmenus as Array<string>; // 断言submenus展开项为数组
+  const openedSubMenus = context.defaultOpenSubMenus as Array<string>; // 断言submenus展开项为数组
   const { index, title, className, children } = props;
   const isOpend = (index && context.mode === "vertical") ? openedSubMenus.includes(index) : false;
   const [menuOpen, setMenuOpen] = useState(isOpend);

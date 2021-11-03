@@ -1,9 +1,9 @@
-.app {
+.expand-cards-container {
   display: flex;
   width: 90vw;
 }
 
-.app>.panel {
+.expand-cards-container>.panel {
   display: flex;
   justify-content: center;
   flex: 0.5;
@@ -21,6 +21,6 @@
   transition: flex .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.app>.panel.active {
+.expand-cards-container>.panel.active {
   flex: 5;
 }

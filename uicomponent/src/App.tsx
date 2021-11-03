@@ -2,7 +2,7 @@ import { Button, ButtonType, ButtonSize } from "./components/Button/button";
 import { Menu } from "./components/Menu/menu";
 import { MenuItem } from './components/Menu/menuItem';
 import { SubMenu } from "./components/Menu/subMenu";
-import { ExpandingCards } from "./example/ExpandingCards/index";
+import { ExpandingCards, ProgressSteps } from "./example";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
         </>
 
         <>
-          <Menu defaultIndex={"1"} mode="vertical" defaultOpenSubMenus={['2']} onSelect={(index) => {console.log("点击的", index)}}>
+          <Menu defaultIndex={"1"} mode="vertical" defaultOpenSubMenus={['2']} onSelect={(index) => { console.log("点击的", index) }}>
             <MenuItem>menu 1</MenuItem>
             <MenuItem disabled>menu 2</MenuItem>
             <SubMenu title="dropdown">
@@ -33,9 +33,8 @@ function App() {
         </>
       </header>
 
-      <>
-        <ExpandingCards />
-      </>
+      <ExpandingCards />
+      <ProgressSteps />
     </div>
   );
 }

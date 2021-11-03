@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./index.css";
+import "./index.scss";
 
 export const ExpandingCards: React.FC = (props) => {
   const [currentActive, setCurrentActive] = useState(0);
@@ -21,7 +21,7 @@ export const ExpandingCards: React.FC = (props) => {
   const onChangeHandler = (index: number) => setCurrentActive(index);
 
   return (
-    <div className="app">
+    <div className="expand-cards-container">
       {
         imageItems?.map((item, index) =>
           <div

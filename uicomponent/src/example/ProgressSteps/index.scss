@@ -1,0 +1,31 @@
+.progress-steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 250px;
+
+  button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #fadb14;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid #52c41a;
+    color: #212529;
+    margin: 0 1rem;
+    transition: all .4s linear;
+    cursor: pointer;
+  }
+
+  button:active {
+    transform: scale(.8);
+  }
+
+  button[disabled] {
+    color: #adb5bd;
+    background-color: #fadb14;
+    cursor: not-allowed;
+  }
+}

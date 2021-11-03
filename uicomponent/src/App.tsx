@@ -2,6 +2,7 @@ import { Button, ButtonType, ButtonSize } from "./components/Button/button";
 import { Menu } from "./components/Menu/menu";
 import { MenuItem } from './components/Menu/menuItem';
 import { SubMenu } from "./components/Menu/subMenu";
+import { ExpandingCards } from "./example/ExpandingCards/index";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
           </Menu>
         </>
       </header>
+
+      <>
+        <ExpandingCards />
+      </>
     </div>
   );
 }

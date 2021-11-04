@@ -1,3 +1,8 @@
+$color: #dededf;
+$color_active: #2396ef;
+$font_color: #535455;
+$default_color: #fff;
+
 .progress-steps-container {
   display: flex;
   justify-content: center;
@@ -9,11 +14,11 @@
   button {
     display: inline-block;
     padding: 8px 16px;
-    background-color: #fadb14;
+    background-color: $color_active;
     border-radius: 10px;
     outline: none;
-    border: 1px solid #52c41a;
-    color: #212529;
+    border: $color;
+    color: $default_color;
     margin: 0 1rem;
     transition: all .4s linear;
     cursor: pointer;
@@ -24,8 +29,8 @@
   }
 
   button[disabled] {
-    color: #adb5bd;
-    background-color: #fadb14;
+    color: $font_color;
+    background-color: $color;
     cursor: not-allowed;
   }
 }

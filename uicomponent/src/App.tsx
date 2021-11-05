@@ -2,7 +2,7 @@ import { Button, ButtonType, ButtonSize } from "./components/Button/button";
 import { Menu } from "./components/Menu/menu";
 import { MenuItem } from './components/Menu/menuItem';
 import { SubMenu } from "./components/Menu/subMenu";
-import { ExpandingCards, ProgressSteps, RotatingNavigation } from "./example";
+import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget } from "./example";
 
 function App() {
   return (
@@ -33,9 +33,10 @@ function App() {
         </>
       </header>
 
-      {/* <ExpandingCards /> */}
-      {/* <ProgressSteps /> */}
+      <ExpandingCards />
+      <ProgressSteps />
       <RotatingNavigation />
+      <InputWidget />
     </div>
   );
 }

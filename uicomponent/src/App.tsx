@@ -2,6 +2,7 @@ import { Button, ButtonType, ButtonSize } from "./components/Button/button";
 import { Menu } from "./components/Menu/menu";
 import { MenuItem } from './components/Menu/menuItem';
 import { SubMenu } from "./components/Menu/subMenu";
+import { Icon } from "./components/Icon/icon";
 import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget } from "./example";
 
 function App() {
@@ -15,7 +16,10 @@ function App() {
           <Button btnType={ButtonType.Primary}> primary button </Button>
           <Button btnType={ButtonType.Danger}> danger button </Button>
           <Button btnType={ButtonType.Link} href="https://google.com"> link button </Button>
-          <Button disabled>disabled</Button>
+          <Button disabled>
+            <Icon icon={"icon-lvhuaguanli-zhifaguanli"} />
+            disabled
+          </Button>
           <Button btnType={ButtonType.Link} href="https://google.com" disabled> disabled link button </Button>
         </>
 
@@ -30,6 +34,10 @@ function App() {
             </SubMenu>
             <MenuItem>menu 4</MenuItem>
           </Menu>
+        </>
+
+        <>
+          <Icon icon={"icon-zuzhi-copy"} />
         </>
       </header>
 

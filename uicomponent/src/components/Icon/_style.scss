@@ -5,3 +5,9 @@
 	fill: currentColor;
 	overflow: hidden;
 }
+
+@each $key, $var in $theme-colors {
+	.icon-#{$key} {
+		color: $var;
+	}
+}

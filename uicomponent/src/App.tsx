@@ -12,19 +12,28 @@ function App() {
         <h1>hello</h1>
         <>
           <Button autoFocus onClick={() => console.log(123)} size={ButtonSize.Large}> large button </Button>
-          <Button size={ButtonSize.Small}> small button </Button>
-          <Button btnType={ButtonType.Primary}> primary button </Button>
-          <Button btnType={ButtonType.Danger}> danger button </Button>
+          <Button size={ButtonSize.Small}>
+            <Icon icon="icon-pingtaiguanlixitong-xitongjiekou" theme="info" />
+            small button
+          </Button>
+          <Button btnType={ButtonType.Primary}>
+            <Icon icon="icon-lvhuaguanli-danweiguanli" theme="success" />
+            primary button
+          </Button>
+          <Button btnType={ButtonType.Danger}>
+            <Icon icon="icon-pingtaiguanlixitong-daimashengcheng" theme="primary" />
+            danger button
+          </Button>
           <Button btnType={ButtonType.Link} href="https://google.com"> link button </Button>
           <Button disabled>
-            <Icon icon={"icon-lvhuaguanli-zhifaguanli"} />
+            <Icon icon="icon-lvhuaguanli-zhifaguanli" theme="success" />
             disabled
           </Button>
           <Button btnType={ButtonType.Link} href="https://google.com" disabled> disabled link button </Button>
         </>
 
         <>
-          <Menu defaultIndex={"1"} mode="vertical" defaultOpenSubMenus={['2']} onSelect={(index) => { console.log("点击的", index) }}>
+          <Menu defaultIndex={"1"} mode="horizontal" defaultOpenSubMenus={['2']} onSelect={(index) => { console.log("点击的", index) }}>
             <MenuItem>menu 1</MenuItem>
             <MenuItem disabled>menu 2</MenuItem>
             <SubMenu title="dropdown">
@@ -37,7 +46,7 @@ function App() {
         </>
 
         <>
-          <Icon icon={"icon-zuzhi-copy"} />
+          <Icon icon="icon-zuzhi-copy" theme="dark" />
         </>
       </header>
 

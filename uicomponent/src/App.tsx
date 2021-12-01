@@ -3,7 +3,7 @@ import { Menu } from "./components/Menu/menu";
 import { MenuItem } from './components/Menu/menuItem';
 import { SubMenu } from "./components/Menu/subMenu";
 import { Icon } from "./components/Icon/icon";
-import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget, JSXPractice } from "./example";
+import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget, JSXPractice, Parent } from "./example";
 
 function App() {
   return (
@@ -55,6 +55,7 @@ function App() {
       <RotatingNavigation />
       <InputWidget />
       <JSXPractice />
+      <Parent />
     </div>
   );
 }

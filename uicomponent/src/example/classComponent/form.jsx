@@ -39,6 +39,7 @@ class Form extends React.Component {
   render() {
     const { children } = this.props;
     const renderChildren = [];
+    // React.Children.forEach  内置forEach方法
     React.Children.forEach(children, (child) => {
       if (child.type.displayName === "formItem") {
         const { name } = child.props;
@@ -105,7 +106,7 @@ export const Index = () => {
       <FormItem name="name" label="我是"  >
         <Input />
       </FormItem>
-      <FormItem name="mes" label="我想对大家说"  >
+      <FormItem name="msg" label="我想对大家说"  >
         <Input />
       </FormItem>
     </Form>

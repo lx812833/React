@@ -6,6 +6,7 @@ import { Icon } from "./components/Icon/icon";
 import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget, JSXPractice, Parent } from "./example";
 import Props from "./example/classComponent/props";
 import { Index } from "./example/classComponent/form";
+import { StringRef, FunctionRef, ObjectRef } from "./example/ref";
 
 function App() {
   return (
@@ -60,6 +61,9 @@ function App() {
       <Parent />
       <Props />
       <Index />
+      <StringRef />
+      <FunctionRef />
+      <ObjectRef />
     </div>
   );
 }

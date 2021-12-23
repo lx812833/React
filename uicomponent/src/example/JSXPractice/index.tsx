@@ -16,7 +16,7 @@ export const JSXPractice: React.FC = (props) => {
 
   return (
     <>
-      <div>123</div>
+      <div style={{ marginTop: "50px" }}>123</div>
       {status ? <div>456</div> : TextComponent()}
 
       {

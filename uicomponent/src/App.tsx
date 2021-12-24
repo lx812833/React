@@ -3,7 +3,7 @@ import { Menu } from "./components/Menu/menu";
 import { MenuItem } from './components/Menu/menuItem';
 import { SubMenu } from "./components/Menu/subMenu";
 import { Icon } from "./components/Icon/icon";
-import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget, JSXPractice, Parent } from "./example";
+import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget, JSXPractice, Parent, AppContext } from "./example";
 import Props from "./example/classComponent/props";
 import { Index } from "./example/classComponent/form";
 import { StringRef, FunctionRef, ObjectRef } from "./example/ref";
@@ -64,6 +64,7 @@ function App() {
       <StringRef />
       <FunctionRef />
       <ObjectRef />
+      <AppContext />
     </div>
   );
 }

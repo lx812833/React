@@ -4,6 +4,23 @@ import React from "react";
 //   [propName: string]: string;
 // }
 
+// interface IFormItemsProps {
+//   [key: string]: string;
+// }
+
+// export const FormItems: React.FC = (props) => {
+//   const formItem: IFormItemsProps = {
+//     a: "1",
+//     b: "2"
+//   }
+//   Object.keys(formItem).forEach(key => {
+//     formItem[key] = "";
+//   })
+//   return (
+//     <div>123</div>
+//   )
+// }
+
 class Form extends React.Component {
   state = {
     formData: {}

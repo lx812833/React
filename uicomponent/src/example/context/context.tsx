@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import styles from "./content.module.scss";
 
 interface IThemeProps {
   [key: string]: {
@@ -49,16 +50,16 @@ export const AppContext: React.FC = (props) => {
   }
 
   return (
-    <>
-      <button onClick={changeTheme}>主题</button>
-      <button onClick={changeLanguage}>语言</button>
+    <div style={{ marginTop: '50px' }}>
+      <button className={styles["button"]} onClick={changeTheme}>主题</button>
+      <button className={styles["button"]} onClick={changeLanguage}>语言</button>
 
       <themeContext.Provider value={theme}>
         <languageContext.Provider value={language}>
           <UsedContext />
         </languageContext.Provider>
       </themeContext.Provider>
-    </>
+    </div>
   )
 }
 
@@ -66,7 +67,7 @@ const UsedContext: React.FC = (props) => {
   const theme = useContext(themeContext);
   const language = useContext(languageContext);
   return (
-    <div style={{ marginTop: '50px', color: theme.color, background: theme.background }}>
+    <div style={{ color: theme.color, background: theme.background }}>
       {language.language === "zh" ? "中文" : "English"}
     </div>
   )

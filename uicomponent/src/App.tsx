@@ -7,7 +7,7 @@ import { ExpandingCards, ProgressSteps, RotatingNavigation, InputWidget, JSXPrac
 import Props from "./example/classComponent/props";
 import { Index } from "./example/classComponent/form";
 import { StringRef, FunctionRef, ObjectRef } from "./example/ref";
-import { Memo } from "./example/useMemo";
+import { Memo, SuspenseTest } from "./example/useMemo";
 
 function App() {
   return (
@@ -67,6 +67,7 @@ function App() {
       <ObjectRef />
       <AppContext />
       <Memo />
+      <SuspenseTest />
     </div>
   );
 }

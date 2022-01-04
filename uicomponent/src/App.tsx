@@ -8,6 +8,7 @@ import Props from "./example/classComponent/props";
 import { Index } from "./example/classComponent/form";
 import { StringRef, FunctionRef, ObjectRef } from "./example/ref";
 import { Memo, SuspenseTest } from "./example/useMemo";
+import { NumerousData } from "./example/manyData";
 
 function App() {
   return (
@@ -68,6 +69,7 @@ function App() {
       <AppContext />
       <Memo />
       <SuspenseTest />
+      <NumerousData />
     </div>
   );
 }

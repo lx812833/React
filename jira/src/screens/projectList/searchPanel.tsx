@@ -11,7 +11,11 @@ export interface User {
 interface SearchPanelProps {
   users: User[],
   param: Partial<Pick<Project, "name" | "personId">>,
-  setParam: (param: SearchPanelProps['param']) => void
+  // param: {
+  //   name: string,
+  //   personId: string
+  // },
+  setParam: (param: SearchPanelProps['param']) => void // 这里 形参param 使用 SearchPanelProps里的param字段
 }
 
 export const SearchPanel = ({ users, param, setParam }: SearchPanelProps) => {

@@ -24,7 +24,7 @@ export const initUser = async () => {
   return user
 }
 
-// 实现组件跨层级传值功能
+// 实现组件跨层级传值功能（泛型类型）
 const AuthContext = React.createContext<{
   user: User | null,
   login: (form: AuthForm) => Promise<void>,

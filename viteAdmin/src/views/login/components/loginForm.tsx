@@ -2,14 +2,19 @@ import md5 from "js-md5";
 import { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { Login } from "@/api/interface";
-import { loginApi } from "@/api/modules/login";
+// import { Login } from "@/api/interface";
+// import { loginApi } from "@/api/modules/login";
 import { HOME_URL } from "@/config/config";
 import { connect } from "react-redux";
-import { setToken } from "@/redux/modules/global/action";
+// import { setToken } from "@/redux/modules/global/action";
 import { useTranslation } from "react-i18next";
-import { setTabsList } from "@/redux/modules/tabs/action";
+// import { setTabsList } from "@/redux/modules/tabs/action";
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from "@ant-design/icons";
+
+interface ReqLoginForm {
+	username: string;
+	password: string;
+}
 
 const LoginForm = (props: any) => {
 	const { t } = useTranslation();
@@ -19,15 +24,16 @@ const LoginForm = (props: any) => {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	// 登录
-	const onFinish = async (loginForm: Login.ReqLoginForm) => {
+	const onFinish = async (loginForm: ReqLoginForm) => {
 		try {
-			setLoading(true);
-			loginForm.password = md5(loginForm.password);
-			const { data } = await loginApi(loginForm);
-			setToken(data?.access_token);
-			setTabsList([]);
-			message.success("登录成功！");
-			navigate(HOME_URL);
+			console.log("登录");
+			// setLoading(true);
+			// loginForm.password = md5(loginForm.password);
+			// const { data } = await loginApi(loginForm);
+			// setToken(data?.access_token);
+			// setTabsList([]);
+			// message.success("登录成功！");
+			// navigate(HOME_URL);
 		} finally {
 			setLoading(false);
 		}
@@ -71,5 +77,6 @@ const LoginForm = (props: any) => {
 	);
 };
 
-const mapDispatchToProps = { setToken, setTabsList };
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default LoginForm;
+// const mapDispatchToProps = { setToken, setTabsList };
+// export default connect(null, mapDispatchToProps)(LoginForm);

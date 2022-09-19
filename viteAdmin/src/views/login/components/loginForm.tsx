@@ -7,12 +7,14 @@ import { loginApi, Login } from "@/api/modules/login";
 import { HOME_URL } from "@/config/config";
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
-import { setToken as setTokenDispatch } from "@/redux/modules/global/action";
-import { setTabsList as setTabsListDispatch } from "@/redux/modules/tabs/action";
+import { setToken } from "@/redux/modules/global/action";
+import { setTabsList } from "@/redux/modules/tabs/action";
 
 const LoginForm = (props: any) => {
-	const { t } = useTranslation();
+	console.log("propsprops", props);
+
 	const { setToken, setTabsList } = props;
+	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState<boolean>(false);
@@ -70,7 +72,5 @@ const LoginForm = (props: any) => {
 	);
 };
 
-export default LoginForm;
-
-// const mapDispatchToProps = { setTokenDispatch, setTabsListDispatch };
-// export default connect(null, mapDispatchToProps)(LoginForm);
+const mapDispatchToProps = { setToken, setTabsList };
+export default connect(null, mapDispatchToProps)(LoginForm);

@@ -3,9 +3,9 @@ import axios, { AxiosInstance, AxiosError, AxiosRequestConfig, AxiosResponse } f
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/config/serviceLoading";
 import { checkStatus } from "./helper/checkStatus";
 import { AxiosCanceler } from "./helper/axiosCancel";
-// import { setToken } from "@/redux/modules/global/action";
+import { setToken } from "@/redux/modules/global/action";
 import { message } from "antd";
-// import { store } from "@/redux";
+import { store } from "@/redux";
 
 // 请求响应参数(包含data)
 interface Result {
@@ -54,9 +54,8 @@ class RequestHttp {
         axiosCanceler.addPending(config);
         // * 如果当前请求不需要显示 loading,在api服务中通过指定的第三个参数: { headers: { noLoading: true } }来控制不显示loading，参见loginApi
         config.headers!.noLoading || showFullScreenLoading();
-
-        // const token: string = store.getState().global.token;
-        return { ...config, headers: { ...config.headers } }; //  "x-access-token": token
+        const token: string = store.getState().global.token;
+        return { ...config, headers: { ...config.headers }, "x-access-token": token };
       },
       (error: AxiosError) => {
         return Promise.reject(error);
@@ -76,7 +75,7 @@ class RequestHttp {
         tryHideFullScreenLoading();
         // * 登录失效（code == 599）
         if (data.code == ResultEnum.OVERDUE) {
-          // store.dispatch(setToken(""));
+          store.dispatch(setToken(""));
           message.error(data.msg);
           window.location.hash = "/login";
           return Promise.reject(data);

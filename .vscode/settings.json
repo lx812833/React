@@ -5,6 +5,7 @@
     "immer",
     "liquidfill",
     "nprogress",
+    "persistor",
     "reduxjs",
     "screenfull",
     "stylelint"

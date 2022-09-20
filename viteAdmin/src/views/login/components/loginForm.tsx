@@ -72,5 +72,7 @@ const LoginForm = (props: any) => {
 	);
 };
 
+// 通过react-redux的connect方法，将mapStateToProps与mapDispatchToProps 方法与组件链接，
+// 然后直接在类组件中通过props.XXX的方式进行访问Store中的state.
 const mapDispatchToProps = { setToken, setTabsList };
 export default connect(null, mapDispatchToProps)(LoginForm);

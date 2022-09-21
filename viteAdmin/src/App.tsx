@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { HashRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { ConfigProvider } from "antd";
 import Router from "@/routers/index";
 import i18n from "i18next";
 import { getBrowserLang } from "@/utils/util";
+import useTheme from "@/hooks/useTheme";
 import zhCN from "antd/lib/locale/zh_CN";
 import enUS from "antd/lib/locale/en_US";
 
 function App(props: any) {
-  const { language } = props;
+  const { language, themeConfig } = props;
   const [i18nLocale, setI18nLocale] = useState(enUS);
+
+  // 全局使用主题
+	useTheme(themeConfig);
 
   const setAntdLanguage = () => {
     // 如果 redux 中有默认语言就设置成 redux 的默认语言，没有默认语言就设置成浏览器默认语言
@@ -34,4 +39,5 @@ function App(props: any) {
   )
 }
 
-export default App;
+const mapStateToProps = (state: any) => state.global;
+export default connect(mapStateToProps)(App);

@@ -11,7 +11,11 @@ import tabs from "./modules/tabs/reducer";
 import auth from "./modules/auth/reducer";
 import breadcrumb from "./modules/breadcrumb/reducer";
 
-// 创建reducer(拆分reducer)
+/**
+ * redux 创建reducer
+ * 可以使用单独的一个 reducer，也可以将多个reducer合并为一个 reducer，即 combineReducers。
+ */
+// 合并多个reducer函数
 const reducer = combineReducers({
 	global,
 	menu,
@@ -31,7 +35,7 @@ const persistReducerConfig = persistReducer(persistConfig, reducer);
 // 开启 redux-devtools（window的方法）
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// 使用 redux 中间件
+// 使用 redux 中间件（安装中间件 applyMiddleware(thunk)）
 const middleWares = applyMiddleware(reduxThunk, reduxPromise);
 
 // 创建 store

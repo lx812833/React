@@ -11,8 +11,6 @@ import { setToken } from "@/redux/modules/global/action";
 import { setTabsList } from "@/redux/modules/tabs/action";
 
 const LoginForm = (props: any) => {
-	console.log("propsprops", props);
-
 	const { setToken, setTabsList } = props;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
@@ -71,6 +69,14 @@ const LoginForm = (props: any) => {
 		</Form>
 	);
 };
+
+/**
+ * react-redux 核心方法
+ * 
+ * connect：connect 用于连接 UI 组件与 redux，使用 connect()() 创建并暴露一个 Count 的容器组件
+ * mapStateToProps：意译为“把 state 映射到 props 中去”，其实也就是把 Redux 中的数据映射到 React 中的props中去。
+ * mapDispatchToProps：把各种 dispatch 变成了 props，在组件中可以直接使用。
+ */
 
 // 通过react-redux的connect方法，将mapStateToProps与mapDispatchToProps 方法与组件链接，
 // 然后直接在类组件中通过props.XXX的方式进行访问Store中的state.

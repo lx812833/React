@@ -1,11 +1,11 @@
 import "./index.less";
 
-const BatchImport = () => {
+const SelectIcon = () => {
 	return (
 		<div className="card content-box">
-			<span className="text">BatchImport 🍓🍇🍈🍉</span>
+			<span className="text">SelectIcon 🍓🍇🍈🍉</span>
 		</div>
 	);
 };
 
-export default BatchImport;
+export default SelectIcon;

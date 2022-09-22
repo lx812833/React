@@ -132,9 +132,11 @@ export const getBreadcrumbList = (path: string, menuList: Menu.MenuOptions[]) =>
 export const findAllBreadcrumb = (menuList: Menu.MenuOptions[]): { [key: string]: any } => {
   let handleBreadcrumbList: any = {};
   const loop = (menuItem: Menu.MenuOptions) => {
-    // 下面判断代码解释 *** !item?.children?.length   ==>   (item.children && item.children.length > 0)
-    if (menuItem?.children?.length) menuItem.children.forEach(item => loop(item));
-    else handleBreadcrumbList[menuItem.path] = getBreadcrumbList(menuItem.path, menuList);
+    if (menuItem?.children?.length) {
+      menuItem.children.forEach(item => loop(item));
+    } else {
+      handleBreadcrumbList[menuItem.path] = getBreadcrumbList(menuItem.path, menuList);
+    }
   };
   menuList.forEach(item => loop(item));
   return handleBreadcrumbList;

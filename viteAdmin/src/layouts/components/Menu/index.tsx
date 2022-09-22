@@ -91,9 +91,9 @@ const LayoutMenu = (props: any) => {
 	const clickMenu: MenuProps["onClick"] = ({ key }: { key: string }) => {
 		const route = searchRoute(key, props.menuList);
 		if (route.isLink) {
-			// window.open(route.isLink, "_blank");
+			window.open(route.isLink, "_blank");
 		}
-		// navigate(key);
+		navigate(key);
 	};
 
 	// 设置当前展开的 subMenu

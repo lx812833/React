@@ -12,7 +12,7 @@ const LayoutIndex = (props: any) => {
 
   return (
     <section className="container">
-      <Sider trigger={null} collapsed={props.isCollapse} width={220} theme="dark">
+      <Sider trigger={null} collapsed={props.isCollapse} width={220} theme="light">
         <LayoutMenu></LayoutMenu>
       </Sider>
       <Layout>

@@ -1,8 +1,7 @@
 // 引入 createStore,专门用于创建redux中最核心的store对象
-import { legacy_createStore as createStore, combineReducers, Store, compose } from "redux";
+import { legacy_createStore as createStore, combineReducers, Store, compose, applyMiddleware } from "redux";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
-import { applyMiddleware } from "redux";
 import reduxThunk from "redux-thunk";
 import reduxPromise from "redux-promise";
 import global from "./modules/global/reducer";

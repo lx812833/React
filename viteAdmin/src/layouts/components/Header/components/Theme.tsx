@@ -29,7 +29,7 @@ const Theme = (props: any) => {
     <>
       <i className="icon-style iconfont icon-zhuti" onClick={() => { setVisible(true) }}></i>
 
-      <Drawer title="布局设置" visible={visible} closable={false} width={320} onClose={() => {
+      <Drawer title="布局设置" open={visible} closable={false} width={320} onClose={() => {
         setVisible(false);
       }}>
         {/* 全局主题 */}

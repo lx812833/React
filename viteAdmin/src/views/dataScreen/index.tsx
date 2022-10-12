@@ -9,7 +9,7 @@ import OverNext30Chart from "./components/OverNext30Chart";
 import PlatformSourceChart from "./components/PlatformSourceChart";
 import RealTimeAccessChart from "./components/RealTimeAccessChart";
 import ChinaMapChart from "./components/ChinaMapChart";
-import Headertime from "./components/DataHeaderTime";
+import HeaderTime from "./components/DataHeaderTime";
 import dataScreenTitle from "./images/dataScreen-title.png";
 import "./index.less";
 
@@ -64,7 +64,7 @@ const DataScreen = () => {
 					</div>
 					<div className="header-rg">
 						<span className="header-download">统计报告</span>
-						<Headertime />
+						<HeaderTime />
 					</div>
 				</div>
 				<div className="dataScreen-main">

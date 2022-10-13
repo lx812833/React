@@ -33,7 +33,7 @@ function App(props: any) {
 
   return (
     <HashRouter>
-      <ConfigProvider locale={i18nLocale}>
+      <ConfigProvider locale={i18nLocale} componentSize={assemblySize}>
         <Router />
       </ConfigProvider>
     </HashRouter >

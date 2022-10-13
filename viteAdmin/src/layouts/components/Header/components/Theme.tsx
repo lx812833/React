@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { connect } from "react-redux";
 import { Drawer, Divider, Switch } from "antd";
+import { useTranslation } from "react-i18next";
 import SwitchDark from "@/components/SwitchDark";
 import { updateCollapse } from "@/redux/modules/menu/action";
 import { setThemeConfig } from "@/redux/modules/global/action";
@@ -8,6 +9,7 @@ import { FireOutlined, SettingOutlined } from "@ant-design/icons";
 
 const Theme = (props: any) => {
   const [visible, setVisible] = useState<boolean>(false);
+  const { t } = useTranslation();
   const { isCollapse } = props.menu;
   const { themeConfig } = props.global;
   const { setThemeConfig, updateCollapse } = props;
@@ -38,11 +40,11 @@ const Theme = (props: any) => {
           全局主题
         </Divider>
         <div className="theme-item">
-          <span>暗黑模式</span>
+          <span>{t("header.darkMode")}</span>
           <SwitchDark />
         </div>
         <div className="theme-item">
-          <span>灰色模式</span>
+          <span>{t("header.grayMode")}</span>
           <Switch
             checked={weakOrGray === "gray"}
             onChange={e => {
@@ -51,7 +53,7 @@ const Theme = (props: any) => {
           />
         </div>
         <div className="theme-item">
-          <span>色弱模式</span>
+          <span>{t("header.weakMode")}</span>
           <Switch
             checked={weakOrGray === "weak"}
             onChange={e => {

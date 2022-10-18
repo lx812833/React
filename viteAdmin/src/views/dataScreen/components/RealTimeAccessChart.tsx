@@ -3,6 +3,11 @@ import { useEcharts } from "@/hooks/useEcharts";
 import "echarts-liquidfill";
 import "./RealTimeAccessChart.less";
 
+/**
+ * echarts-liquidfill水球图
+ * https://www.jianshu.com/p/330b7e0f389e
+ */
+
 const RealTimeAccessChart = () => {
 	let data = 0.5;
 	const option = {

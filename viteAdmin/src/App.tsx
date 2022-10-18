@@ -8,6 +8,7 @@ import { getBrowserLang } from "@/utils/util";
 import useTheme from "@/hooks/useTheme";
 import zhCN from "antd/lib/locale/zh_CN";
 import enUS from "antd/lib/locale/en_US";
+import AuthRouter from "@/routers/utils/authRouter";
 import { setLanguage } from "@/redux/modules/global/action";
 
 function App(props: any) {
@@ -34,7 +35,9 @@ function App(props: any) {
   return (
     <HashRouter>
       <ConfigProvider locale={i18nLocale} componentSize={assemblySize}>
-        <Router />
+        <AuthRouter>
+          <Router />
+        </AuthRouter>
       </ConfigProvider>
     </HashRouter >
   )

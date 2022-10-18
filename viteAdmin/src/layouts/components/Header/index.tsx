@@ -1,4 +1,5 @@
 import { Layout } from "antd";
+import { connect } from "react-redux";
 import Theme from "./components/Theme";
 import Language from "./components/Language";
 import Fullscreen from "./components/Fullscreen";
@@ -8,7 +9,8 @@ import CollapseIcon from "./components/CollapseIcon";
 import BreadcrumbNav from "./components/BreadcrumbNav";
 import "./index.less";
 
-const LayoutHeader = () => {
+const LayoutHeader = (props: any) => {
+	const { userInfo } = props;
 	const { Header } = Layout;
 
 	return (
@@ -22,11 +24,13 @@ const LayoutHeader = () => {
 				<Language />
 				<Theme />
 				<Fullscreen />
-				<span className="username">Hooks</span>
+				<span className="username">{userInfo}</span>
 				<AvatarIcon />
 			</div>
 		</Header>
 	);
 };
 
-export default LayoutHeader;
+
+const mapStateToProps = (state: any) => state.global;
+export default connect(mapStateToProps)(LayoutHeader);

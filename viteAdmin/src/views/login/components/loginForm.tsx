@@ -7,11 +7,11 @@ import { loginApi, Login } from "@/api/modules/login";
 import { HOME_URL } from "@/config/config";
 import { UserOutlined, LockOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
-import { setToken } from "@/redux/modules/global/action";
+import { setToken, setUserInfo } from "@/redux/modules/global/action";
 import { setTabsList } from "@/redux/modules/tabs/action";
 
 const LoginForm = (props: any) => {
-	const { setToken, setTabsList } = props;
+	const { setToken, setTabsList, setUserInfo } = props;
 	const { t } = useTranslation();
 	const navigate = useNavigate();
 	const [form] = Form.useForm();
@@ -23,6 +23,7 @@ const LoginForm = (props: any) => {
 			setLoading(true);
 			loginForm.password = md5(loginForm.password);
 			const { data } = await loginApi(loginForm);
+			setUserInfo(loginForm.username);
 			setToken(data?.access_token);
 			setTabsList([]);
 			message.success("登录成功！");
@@ -80,5 +81,5 @@ const LoginForm = (props: any) => {
 
 // 通过react-redux的connect方法，将mapStateToProps与mapDispatchToProps 方法与组件链接，
 // 然后直接在类组件中通过props.XXX的方式进行访问Store中的state.
-const mapDispatchToProps = { setToken, setTabsList };
+const mapDispatchToProps = { setToken, setTabsList, setUserInfo };
 export default connect(null, mapDispatchToProps)(LoginForm);

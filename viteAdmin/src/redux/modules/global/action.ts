@@ -24,3 +24,9 @@ export const setThemeConfig = (themeConfig: ThemeConfigProp) => ({
 	type: types.SET_THEME_CONFIG,
 	themeConfig
 });
+
+// * setUserInfo
+export const setUserInfo = (userInfo: string) => ({
+	type: types.SET_USER_INFO,
+	userInfo
+});

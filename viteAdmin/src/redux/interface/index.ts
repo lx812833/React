@@ -27,7 +27,6 @@ export interface MenuState {
 
 /* TabsState */
 export interface TabsState {
-	tabsActive: string;
 	tabsList: Menu.MenuOptions[];
 }
 

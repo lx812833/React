@@ -67,22 +67,21 @@ const LayoutTabs = (props: any) => {
 						onEdit={path => {
 							delTabs(path as string);
 						}}
-					>
-						{tabsList.map((item: Menu.MenuOptions) => {
-							return (
-								<TabPane
-									key={item.path}
-									tab={
+						items={
+							tabsList.map((item: Menu.MenuOptions) => {
+								return {
+									label: (
 										<span>
 											{item.path == HOME_URL ? <HomeFilled /> : ""}
 											{item.title}
 										</span>
-									}
-									closable={item.path !== HOME_URL}
-								></TabPane>
-							);
-						})}
-					</Tabs>
+									),
+									key: item.path,
+									closable: item.path !== HOME_URL
+								}
+							})
+						}
+					/>
 					<MoreButton tabsList={tabsList} delTabs={delTabs} setTabsList={setTabsList}></MoreButton>
 				</div>
 			)}

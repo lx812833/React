@@ -1,5 +1,5 @@
 import { RouteObject } from "@/routers/interface";
-import LayoutIndex from "@/layouts";
+import { LayoutIndex } from "@/routers/constant";
 import Home from "@/views/home";
 
 // 首页模块

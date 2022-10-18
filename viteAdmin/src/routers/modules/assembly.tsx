@@ -1,5 +1,5 @@
 import React from "react";
-import LayoutIndex from "@/layouts";
+import { LayoutIndex } from "@/routers/constant";
 import lazyLoad from "@/routers/utils/lazyLoad";
 import { RouteObject } from "@/routers/interface";
 

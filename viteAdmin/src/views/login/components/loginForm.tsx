@@ -37,12 +37,17 @@ const LoginForm = (props: any) => {
 		console.log("Failed:", errorInfo);
 	};
 
+	// initialValues：表单默认值，只有初始化以及重置时生效
+
 	return (
 		<Form
 			form={form}
 			name="basic"
 			labelCol={{ span: 5 }}
-			initialValues={{ remember: true }}
+			initialValues={{ 
+				username: "admin",
+				password: "123456"
+			}}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
 			size="large"

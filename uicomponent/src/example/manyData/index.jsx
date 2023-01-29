@@ -10,7 +10,7 @@ const getColor = () => {
 }
 
 // 随机位置
-const getPostion = (position) => {
+const getPosition = (position) => {
   const { width, height } = position;
 
   return {
@@ -25,7 +25,7 @@ const SetCircle = ({ position }) => {
   const style = useMemo(() => {
     return {
       background: getColor(),
-      ...getPostion(position)
+      ...getPosition(position)
     }
   }, [])
 

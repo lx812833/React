@@ -9,6 +9,7 @@ export async function getInitialState(): Promise<{ name: string }> {
 export const layout = () => {
   return {
     logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    title: '产品名，默认值为包名',
     menu: {
       locale: false,
     },

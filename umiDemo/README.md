@@ -17,9 +17,6 @@
 │   ├── models                                                 // 数据流
 │   │   ├── global.ts
 │   │   └── index.ts
-│   ├── wrappers                                               // 权限管理
-│   │   ├── global.ts
-│   │   └── index.ts
 │   ├── pages                                                  // 页面代码
 │   │   ├── index.less
 │   │   └── index.tsx
@@ -28,6 +25,7 @@
 │   ├── services // 推荐目录
 │   │   └── api.ts
 │   ├── app.(ts|tsx)                                           // 运行时配置文件
+│   ├── access.(ts|tsx)                                        // 权限配置
 │   ├── global.ts                                              // 约定的全局方法
 │   ├── global.(css|less|sass|scss)                            // 约定的全局样式
 │   ├── overrides.(css|less|sass|scss)                         // 高优先级全局样式文件
